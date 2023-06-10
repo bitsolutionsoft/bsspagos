@@ -1,0 +1,159 @@
+
+@import url("./color.css");
+
+.div-main{
+    width: 100%;
+    height: 100vh;
+}
+/** estilo del header*/
+.header{
+    margin: 0;
+    background-color: var(--primary);
+
+    top: 0;
+  height: 45px;
+  padding: 0px 15px;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ justify-content: space-between;
+
+}
+
+.input-search{
+display: flex;
+border: 2px solid var(--search);
+align-items: center;
+justify-content: center;
+border-radius: 20px;
+width:50%;
+margin: 0px 15px;
+padding: 2px 8px;
+}
+.text-search{
+    width: 100%;
+    margin: 0px 5px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+.text-search:focus, .text-search:active{
+border: none;
+outline: none;
+}
+
+.input-search:has( .text-search:focus ), 
+.input-search:has( .text-search:active ) 
+{
+    border: 2px solid var(--searchFocus);
+    color: var(--searchFocus);
+}
+.icon-search,.icon-search-delete{
+    font-size: 1.1rem;
+}
+/**final del estilo del header*/
+/**final del estilo del side bar*/
+
+.menu{
+    background-color: var(--secondary);
+    color: var(--primary);
+    position: absolute;   
+    z-index: 5;
+    left: 0;
+    margin: 0;
+    height: 100vh;
+    top: 0;
+ /*   box-shadow: 2px 2px 5px var(--shadow);*/
+    transition: all 0.5s ease;
+     width: 220px;  
+}
+.close{
+    left: -250px;
+}
+
+
+.iconopen{
+    font-size: 2rem;
+    
+}
+.iconback{ 
+    margin-top: 5px;   
+    font-size: 1.2rem;
+    cursor: default;
+    font-weight: 700;
+}
+.iconclose{
+    font-size: 2rem;
+    margin-left: 185px;
+  
+}
+.div-title{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.title-sidebar{
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.div-logo{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.logo{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+  
+
+}
+.menu ul{
+    list-style: none;
+    margin: 0;
+
+    padding: 0px 15px 0px 15px;    
+}
+
+.op-item{
+    font-size: 1rem;
+    margin: 15px 0px;
+ position: relative;
+    padding: 4px 8px;
+    cursor:pointer;
+}
+.op-item span{
+    margin-left: 10px;
+}
+.op-active {
+    background-color:var(--primary) ;
+    border-radius: 8px  8px;
+    color: var(--secondary);
+}
+/*
+.op-active::after{
+    content: " ";
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: -30px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0px 12px 0px var(--primary);
+}
+.op-active::before{
+    content: " ";
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    bottom:  -30px;
+    border-top-right-radius: 12px;
+    box-shadow: 0px -12px 0px var(--primary);
+}*/
+/*final de los estilos de side bar*/
