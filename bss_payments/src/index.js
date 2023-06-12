@@ -13,6 +13,7 @@ import "./styles/styleLogin.css";
 import "./styles/styleMenu.css";
 import "./styles/styleTable.css";
 import "./styles/styleLoading.css";
+import "./styles/stylePdf.css";
 
 
 

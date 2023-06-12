@@ -5,7 +5,8 @@ import SortItem from '../../utils/SortItem';
 import ButtonSort from '../../components/Table/ButtonSort';
 import SortNumber from '../../utils/SortNumber';
 import { DataPago, DataProject, DataUsuario } from '../../context/Context';
-
+import { PDFViewer } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 import HeaderTable from '../../components/Table/HeaderTable';
 import BodyTable from '../../components/Table/BodyTable';
@@ -22,7 +23,7 @@ import Moneda from '../../utils/Moneda';
 import { ConvertirAHora } from '../../utils/ConvertirAHora';
 import { CalcTotalPagoDia } from '../../utils/CalcTotalPagoDia';
 
-
+const bootstrap=require("bootstrap");
 
 
 function Historialpagos() {
@@ -43,6 +44,7 @@ const [accion, setAccion] = useState("new");
     const {setViewHistorial, empSeleccionado}= useContext(DataPago)
     const [detallepagos, setDetallepagos] = useState([])
     const [pago, setPago]=useState([]);
+    const [datosFact, setDatosFact] = useState([]);
     const [pagoAux, setPagoAux]=useState([]);
     const [totalPay, setTotalPay] = useState("")
     
@@ -150,8 +152,10 @@ const SavePayments = async () => {
 
 const GuardarCambios =async () => {
 try {
-  await SavePayments();
-  await getDetallePAgos()
+ // await SavePayments();
+  //await getDetallePAgos()
+  const modal=new bootstrap.Modal(document.getElementById("modalPdf"));
+  modal.show();
 setTotalPay("")
 } catch (error) {
   console.log(error)
@@ -161,6 +165,56 @@ setTotalPay("")
 }
 
 
+
+
+const styles = StyleSheet.create({
+   
+  table: {
+      width: '100%',
+      borderWidth: 0.5,
+      display: 'flex',
+      flexDirection: 'column',
+      marginVertical: 12
+  },
+  tableRow:{
+      display: 'flex',
+      flexDirection: 'row',
+      borderBottomWidth: 0.5,
+      borderBottomColor:"gray"
+  },
+  cell: {
+     padding:5,
+     marging: 5,
+      borderWidth: 0.5,
+      display: 'flex',
+      justifyContent: 'center',
+      alignContent: 'center',
+      textAlign: 'center',
+      flexWrap: 'wrap'
+  },
+  
+  cells: {
+     padding:5,
+     marging: 5,
+   
+      fontSize:13,
+      display: 'flex',
+      justifyContent: 'center',
+      alignContent: 'center',
+      textAlign: 'center',
+      flexWrap: 'wrap'
+  },
+  header: {
+     padding:5,
+     marging: 5,
+  fontSize:14,
+      display: 'flex',
+      flexWrap: 'wrap',
+      color:"gray",
+  }
+      })   
+      
+      
   return (
     <>
       <div className='div-header'>
@@ -178,7 +232,7 @@ setTotalPay("")
   <label className="label-total ms-2" htmlFor="flexCheckDefault"> {Moneda(totalPay)}</label>
 </div>
       
-            <button type="button" className="btn-pagar" onClick={(e)=>GuardarCambios(e)}>Pay All</button>
+            <button type="button" className="btn-pagar" onClick={(e)=>GuardarCambios(e)}>Pay</button>
           
     
        </div>
@@ -237,12 +291,57 @@ setTotalPay("")
           </TableContainer>
           :
           <Loader/>}
-<div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" className="btn btn-outline-success">Pay All</button>
-            </div>
+
         </div>
+     
+<div className="modal fade" id="modalPdf" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-scrollable">
+    <div className="modal-content">
+      <div className="modal-header">
+      
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      <PDFViewer style={{width:'100%',height:"90vh"}}>
+      <Document size="LETTER" style={{padding:10}}>
+    <Page size="A4" style={styles.page}>
+     <View >
+      <Text style={styles.cell} >Sei Group</Text>
+      <Text style={styles.header}>Framing Interio & Exterior</Text>
+      <Text  style={styles.cells}>Employee:</Text>
+     </View>
+     <View>
+      {
+        detallepagos.length >0 ?
+        detallepagos.map((item,index)=>(
+            <View key={index} style={styles.tableRow}>
+
+                  <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12, }}>{item.direccion}</Text>
+                  <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12,textAlign: 'center', }}>{item.fase}</Text>
+                  <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12,textAlign: 'center', }}>{item.tipo}</Text>
+                  <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12,textAlign: 'center', }}>{moment( item.fecha).format("MM/DD/YYYY")}</Text> 
+                 
+                  
+                  <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12,textAlign: 'center', }}>{ConvertirAHora(item.hora_total) }</Text>
+              
+                  <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12,textAlign: 'center', }}>{Moneda(CalcTotalPagoDia(item.hora_total,item.precio))}</Text>
+        </View>
+        ))
+      
+        :null
+      }
+     </View>
+    </Page>
+  </Document>
+  </PDFViewer>
+      </div>
+     
+    </div>
+  </div>
+</div>
     </>
   )
 }
 
-export default Historialpagos
+
+      export default Historialpagos
