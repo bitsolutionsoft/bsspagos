@@ -15,7 +15,9 @@ const Empleado=function(empleado){
 Empleado.View= async ()=>{
     return await query(`select *from view_empleado;`)
 }
-
+Empleado.ViewPagosCancel= async ()=>{
+    return await query(`select *from pagocancel_emp;`)
+}
 Empleado.ViewPagos= async ()=>{
     return await query(`select *from pago_emp;`)
 }

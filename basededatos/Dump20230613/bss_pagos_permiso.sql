@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bss_pagos
 -- ------------------------------------------------------
--- Server version	8.0.29
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,12 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `info`
+-- Dumping data for table `permiso`
 --
 
-LOCK TABLES `info` WRITE;
-/*!40000 ALTER TABLE `info` DISABLE KEYS */;
-/*!40000 ALTER TABLE `info` ENABLE KEYS */;
+LOCK TABLES `permiso` WRITE;
+/*!40000 ALTER TABLE `permiso` DISABLE KEYS */;
+INSERT INTO `permiso` VALUES (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,1),(5,1,5,1),(6,1,6,1),(7,1,7,1),(8,1,8,1),(9,1,9,1),(10,1,10,1),(11,1,11,1),(13,4,1,0),(14,4,2,1),(15,4,3,0),(16,4,4,0),(17,4,5,0),(18,4,6,0),(19,4,7,0),(20,4,8,0),(21,4,9,0),(22,4,10,0),(23,4,11,1),(24,5,1,0),(25,5,2,0),(26,5,3,0),(27,5,4,0),(28,5,5,0),(29,5,6,0),(30,5,7,1),(31,5,8,0),(32,5,9,0),(33,5,10,0),(34,5,11,1),(35,6,1,0),(36,6,2,0),(37,6,3,0),(38,6,4,0),(39,6,5,0),(40,6,6,0),(41,6,7,1),(42,6,8,0),(43,6,9,0),(44,6,10,0),(45,6,11,1),(46,2,1,0),(47,2,2,0),(48,2,3,0),(49,2,4,0),(50,2,5,0),(51,2,6,0),(52,2,7,0),(53,2,8,0),(54,2,9,0),(55,2,10,0),(56,2,11,0);
+/*!40000 ALTER TABLE `permiso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -33,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-10 16:00:10
+-- Dump completed on 2023-06-13 13:46:20

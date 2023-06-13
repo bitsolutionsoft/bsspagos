@@ -215,27 +215,6 @@ const AbrirNuevo = () => {
     }
     setFase([])
   }
-  /**
-   * 
-alter table horas_trabajo  drop  constraint fk_empleado;
-alter table horas_trabajo drop column idempleado;
-
-alter table fase_proyecto add column idempleado int;
-alter table fase_proyecto add column idtipotrabajo int;
-
-alter table fase_proyecto add constraint fk_empleado foreign key (idempleado) references empleado(idempleado);
-
-alter table fase_proyecto add constraint fk_tipotra foreign key (idtipotrabajo) references tipo_trabajo(idtrabajo);
-para view y procedure
-  SELECT 
-      p.nombre as nombreproyecto, p.direccion, tt.nombre as nombrefase, tt.tipo, tt.precio, f.*,
-      e.nombre as nombreempleado,e.apellido
-      
-    FROM
-       fase_proyecto f inner join empleado e on f.idempleado=e.idempleado
-       inner join tipo_trabajo tt on f.idtipotrabajo = tt.idtrabajo
-       inner join  proyecto p on f.idproyecto = p.idproyecto
-   */
 
   const getTipoTrabajo = async () => {
     let tipoTabajo = await Datos.getDatos("tipotrabajo");
@@ -353,7 +332,7 @@ setDireccion(fase[index].direccion);
 <option > Fase List</option>
 {fase.length >0 ? fase.map ((item,index)=>(
 <option  value={item.idfase} key={index}>
-  {"Porject: "+item.proyectonombre+ "  Work: "+ item.tipo +"  Employee  "+ item.nombreempleado  + " "+ item.apellido}
+  {"Porject: "+item.proyectonombre+ "  Work: "+ item.tipo +"  Employee:  "+ item.nombreempleado  + " "+ item.apellido}
 </option>
 )):null }</select>
 </div> 
@@ -363,12 +342,7 @@ setDireccion(fase[index].direccion);
  <InputText label="Fase" type="text" value={nombrefase} onChange={setNombrefase} required disabled/>
  <InputText label="Tipo" type="text" value={tipofase} onChange={setTipofase} required disabled/>
  <InputText label="Precio" type="text" value={preciofase} onChange={setPreciofase} required disabled/>
-  {/**<InputText label="apellido" type="text"  value={apellido} onChange={setApellido} required />
-   <InputText label="codigo" type="text" value={idempleado} onChange={setIdEmpleado}  hidden/>
- <InputText label="Numero de DPI" type="text" max={12} value={dpi} onChange={setDpi} required />
 
- <InputText label="Telefono" type="number" max={9} value={telefono} onChange={setTelefono} required />
- <InputText label="Correo" type="email" value={correo} onChange={setCorreo} required /> */}
 
  
     </div>
@@ -385,53 +359,3 @@ setDireccion(fase[index].direccion);
 }
 
 export default Asistencia
-
-/**
- * CREATE DEFINER=`root`@`localhost` PROCEDURE `ingreso_fase`(
-in _idfase integer,
-in _idproyecto integer,
-in _nombre varchar(75),
-in _estado varchar(75),
-in _idempleado int,
-in _idtipotrabjo int,
-in accion varchar(10)
-)
-begin
-declare exit  handler for sqlexception
-begin
-show errors limit 1;
-resignal;
-rollback;
-end;
-declare exit handler for sqlwarning
-begin
-show warnings limit 1;
-resignal;
-rollback;
-end;
-start transaction;
-case accion
-when 'new' then
-insert into fase_proyecto(idproyecto,nombre,estado, idempleado, idtipotrabajo)values(_idproyecto,_nombre,_estado,_idempleado, _idtipotrabajo);
-when 'update' then
-update fase_proyecto set idproyecto=_idproyecto, nombre=_nombre, estado=_estado, idempleado=_idempleado, idtipotrabajo=_idtipotrabajo
-where idfase =_idfase;
-when 'viewone' then
-select *from fase_proyecto where idfase=_idfase;
-when 'viewxd' then
- SELECT 
-      p.nombre as nombreproyecto, p.direccion, tt.nombre as nombrefase, tt.tipo, tt.precio, f.*,
-      e.nombre as nombreempleado,e.apellido
-      
-    FROM
-       fase_proyecto f inner join empleado e on f.idempleado=e.idempleado
-       inner join tipo_trabajo tt on f.idtipotrabajo = tt.idtrabajo
-       inner join  proyecto p on f.idproyecto = p.idproyecto
-       where
-       f.estado="Activo" and f.idempleado= _idempleado;
-when 'delete' then
-update fase_proyecto set estado="No Activo" where idfase=_idfase;
-end case;
-commit;
-end
- */

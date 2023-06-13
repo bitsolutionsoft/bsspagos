@@ -108,3 +108,23 @@ exports.ViewPagos=async(req,res)=>{
         console.log(`Error:  ${er.sqlMessage}. \n SQL: ${er.sql}`);
     }
     }
+
+    exports.ViewPagosCancel=async(req,res)=>{
+        try {
+            const empleado=await Empleado.ViewPagos();
+            console.log(empleado);
+            if(empleado !== null){
+                res.send({res:empleado})
+                return
+            }
+            if(typeof empleado === 'undefined' ){
+                res.status(503).send({res:"Algo salio mal: error interno en la base de datos"});
+                return
+            }
+           res.status(404).send({res:"No encontro informacion del empleado"});
+        } catch (er) {
+            res.status(503).send({res:"Algo salio mal: error interno en la base de datos"});
+            console.log(`Error:  ${er.sqlMessage}. \n SQL: ${er.sql}`);
+        }
+        }
+    

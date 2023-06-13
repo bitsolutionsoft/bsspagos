@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bss_pagos
 -- ------------------------------------------------------
--- Server version	8.0.29
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `empleado`
+-- Dumping data for table `modulo`
 --
 
-LOCK TABLES `empleado` WRITE;
-/*!40000 ALTER TABLE `empleado` DISABLE KEYS */;
-INSERT INTO `empleado` VALUES (1,'Jose Fernando','Hernandez Gomez',123456789,'jsfer@gmail.com','Activo'),(2,'pedro','hernandez',565656,'fadsfd@gmail.com','Activo'),(3,'juan','gonzalez',432432432,'fdsfdsfd@gmail.com','Activo'),(4,'mario','lopez',343432432,'rewrewre@gmail.com','Activo');
-/*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
+LOCK TABLES `modulo` WRITE;
+/*!40000 ALTER TABLE `modulo` DISABLE KEYS */;
+INSERT INTO `modulo` VALUES (1,'Employee'),(2,'Assistance'),(3,'Add User'),(4,'Add Permission'),(5,'Projects'),(6,'Projects phase'),(7,'My Assistance'),(8,'Payments'),(9,'Type of Worker'),(10,'Report'),(11,'My Account');
+/*!40000 ALTER TABLE `modulo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-10 16:00:09
+-- Dump completed on 2023-06-13 13:46:21

@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`empleado` (
   `estado` VARCHAR(15) NULL DEFAULT NULL,
   PRIMARY KEY (`idempleado`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`fase_proyecto` (
     FOREIGN KEY (`idtipotrabajo`)
     REFERENCES `bss_pagos`.`tipo_trabajo` (`idtrabajo`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 20
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`horas_trabajo` (
     FOREIGN KEY (`idfase`)
     REFERENCES `bss_pagos`.`fase_proyecto` (`idfase`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 38
+AUTO_INCREMENT = 57
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`pagos` (
     FOREIGN KEY (`idhorastrabajo`)
     REFERENCES `bss_pagos`.`horas_trabajo` (`idhorastrabajo`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 23
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`permiso` (
     FOREIGN KEY (`idmodulo`)
     REFERENCES `bss_pagos`.`modulo` (`idmodulo`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 24
+AUTO_INCREMENT = 57
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`usuario` (
     FOREIGN KEY (`idempleado`)
     REFERENCES `bss_pagos`.`empleado` (`idempleado`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -217,6 +217,11 @@ USE `bss_pagos` ;
 -- Placeholder table for view `bss_pagos`.`pago_emp`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bss_pagos`.`pago_emp` (`idhorastrabajo` INT, `hora_total` INT, `idfase` INT, `estado` INT, `tipo` INT, `total` INT, `fase` INT, `idempleado` INT, `idtipotrabajo` INT, `empleado` INT, `proyecto` INT, `direccion` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `bss_pagos`.`pagocancel_emp`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bss_pagos`.`pagocancel_emp` (`idhorastrabajo` INT, `hora_total` INT, `idfase` INT, `estado` INT, `tipo` INT, `total` INT, `fase` INT, `idempleado` INT, `idtipotrabajo` INT, `empleado` INT, `proyecto` INT, `direccion` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `bss_pagos`.`pagos_emp`
@@ -728,6 +733,13 @@ DELIMITER ;
 DROP TABLE IF EXISTS `bss_pagos`.`pago_emp`;
 USE `bss_pagos`;
 CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`pago_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,sum(`ht`.`hora_total`) AS `hora_total`,`ht`.`idfase` AS `idfase`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,sum((`ht`.`hora_total` * (`tt`.`precio` / 60))) AS `total`,`f`.`nombre` AS `fase`,`f`.`idempleado` AS `idempleado`,`f`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from ((((`bss_pagos`.`horas_trabajo` `ht` join `bss_pagos`.`fase_proyecto` `f` on((`ht`.`idfase` = `f`.`idfase`))) join `bss_pagos`.`tipo_trabajo` `tt` on((`f`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `bss_pagos`.`proyecto` `p` on((`f`.`idproyecto` = `p`.`idproyecto`))) join `bss_pagos`.`empleado` `e` on((`f`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pendiente') group by `e`.`idempleado`;
+
+-- -----------------------------------------------------
+-- View `bss_pagos`.`pagocancel_emp`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bss_pagos`.`pagocancel_emp`;
+USE `bss_pagos`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`pagocancel_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,sum(`ht`.`hora_total`) AS `hora_total`,`ht`.`idfase` AS `idfase`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,sum((`ht`.`hora_total` * (`tt`.`precio` / 60))) AS `total`,`f`.`nombre` AS `fase`,`f`.`idempleado` AS `idempleado`,`f`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from ((((`bss_pagos`.`horas_trabajo` `ht` join `bss_pagos`.`fase_proyecto` `f` on((`ht`.`idfase` = `f`.`idfase`))) join `bss_pagos`.`tipo_trabajo` `tt` on((`f`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `bss_pagos`.`proyecto` `p` on((`f`.`idproyecto` = `p`.`idproyecto`))) join `bss_pagos`.`empleado` `e` on((`f`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Cancelado') group by `e`.`idempleado`;
 
 -- -----------------------------------------------------
 -- View `bss_pagos`.`pagos_emp`

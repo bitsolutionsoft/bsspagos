@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bss_pagos
 -- ------------------------------------------------------
--- Server version	8.0.29
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,13 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `tipo_trabajo`
+-- Dumping data for table `info`
 --
 
-LOCK TABLES `tipo_trabajo` WRITE;
-/*!40000 ALTER TABLE `tipo_trabajo` DISABLE KEYS */;
-INSERT INTO `tipo_trabajo` VALUES (1,'Costruccion','albañil',20.00,'Activo'),(2,'camino','cementar',13.00,'Activo'),(3,'casa','reconstruccion',20.00,'Activo'),(4,'','pintor',21.00,'Activo');
-/*!40000 ALTER TABLE `tipo_trabajo` ENABLE KEYS */;
+LOCK TABLES `info` WRITE;
+/*!40000 ALTER TABLE `info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +33,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-10 16:00:10
+-- Dump completed on 2023-06-13 13:46:21

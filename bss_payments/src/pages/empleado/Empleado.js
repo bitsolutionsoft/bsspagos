@@ -165,7 +165,7 @@ const AbrirNuevo = () => {
   const getGranted = (params) => {
     if(grantedList.length > 0){
       for(let i in grantedList){
-        if(grantedList[i].nombre ===params){
+        if(grantedList[i].nombre === params){
           if(grantedList[i].acceso===1){
               return true
           }
@@ -207,7 +207,7 @@ const setDataUser = (iduser, idempleado) => {
 e.preventDefault(); 
   let insertuser=await Datos.insertNew("usuario",setDataUser(0,idempleado));
   if(insertuser){
-    swal("Good Joh!","user created","success");
+    swal("Good Job!","user created","success");
     return
   }
   swal("ooh!","user was´nt created","error");
@@ -215,10 +215,14 @@ e.preventDefault();
  
   const OpenModalUser =async (item) => {
     setIdEmpleado(item.idempleado)
-    let usedata=await Datos.getDetalleByID("usuario",item.idempleado);
-    if(usedata!==null ){
-      swal("ooh!","this already has a username","error") 
+    let userdata=await Datos.getDetalleByID("usuario",item.idempleado);
+    console.log(userdata)
+    if(userdata!==null  ){
+      if (userdata.length > 0) {
+        swal("ooh!","this already has a username","error") 
       return
+      }
+      
   }
   
 let usuario=item.nombre.split(" ")[0]+"_"+item.apellido.slice(0,2)+item.idempleado;
