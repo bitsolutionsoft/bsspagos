@@ -179,14 +179,14 @@ const setDataEmpleado = (empleado) => {
 }
 
 const AbrirActualizar = (empleado) => {
-  setTitulo("Actualizar Empleado")
+  setTitulo("Update Employee")
   setDataEmpleado(empleado)
   setAccion("update")
   const modal=new bootstrap.Modal(document.getElementById("exampleModal"));
  modal.show();
 }
 const AbrirNuevo = () => {
-  setTitulo("Ingresar Empleado")
+  setTitulo("Insert Assistance")
   Limpiar()
   setAccion("new")
  const modal=new bootstrap.Modal(document.getElementById("exampleModal"));
@@ -328,7 +328,7 @@ setDireccion(fase[index].direccion);
 
 
 <div className="mb-3">
-  <label htmlFor="exampleFormControlInput1" className="form-label">Select proyecto</label>
+  <label htmlFor="exampleFormControlInput1" className="form-label">Select Project</label>
   <select className="form-select" aria-label="Default select example" value={idfase} onChange={(e)=>seleccionarFase(e.target.value)} > 
 <option > Fase List</option>
 {fase.length >0 ? fase.map ((item,index)=>(
@@ -339,17 +339,17 @@ setDireccion(fase[index].direccion);
 </div> 
 
 
- <InputText label="Direccion" type="text" value={direccion} onChange={setDireccion} required  disabled/>
- <InputText label="Fase" type="text" value={nombrefase} onChange={setNombrefase} required disabled/>
- <InputText label="Tipo" type="text" value={tipofase} onChange={setTipofase} required disabled/>
- <InputText label="Precio" type="text" value={preciofase} onChange={setPreciofase} required disabled/>
+ <InputText label="Address" type="text" value={direccion} onChange={setDireccion} required  disabled/>
+ <InputText label="Phase" type="text" value={nombrefase} onChange={setNombrefase} required disabled/>
+ <InputText label="Type" type="text" value={tipofase} onChange={setTipofase} required disabled/>
+ <InputText label="Price" type="text" value={preciofase} onChange={setPreciofase} required disabled/>
 
 
  
     </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" className="btn btn-primary" >Guardar</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" className="btn btn-primary" >Save</button>
       </div>
     </div>
   </div>

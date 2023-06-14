@@ -249,17 +249,17 @@ let pass=(item.nombre.slice(0,2)+"$"+item.idempleado+item.apellido.slice(-2)+Mat
     </div>   
         <div className='div-body'>
         <div className='div-header-table'>
-       <label className='item-title'>Lista de empleado</label>
+       <label className='item-title'>Employee List</label>
        </div>
           {empleado.length > 0 ?
           <TableContainer>
             <HeaderTable>
-              <th onClick={()=> SortItem(sort,"nombre",setEmpleado,empleado,setSort)}><ButtonSort col="Nombre" /></th>
-              <th onClick={()=> SortItem(sort,"apellido",setEmpleado,empleado,setSort)}><ButtonSort col="Apellido" /></th>
-              <th onClick={()=> SortNumber(sort,"telefono",setEmpleado,empleado,setSort)}><ButtonSort col="Telefono" /></th>
-              <th onClick={()=> SortItem(sort,"correo",setEmpleado,empleado,setSort)}><ButtonSort col="Correo" /></th>
-              <th onClick={()=> SortItem(sort,"estado",setEmpleado,empleado,setSort)}><ButtonSort col="Estado" /></th>
-              <th>Acciones</th>
+              <th onClick={()=> SortItem(sort,"nombre",setEmpleado,empleado,setSort)}><ButtonSort col="First Name" /></th>
+              <th onClick={()=> SortItem(sort,"apellido",setEmpleado,empleado,setSort)}><ButtonSort col="Last Name" /></th>
+              <th onClick={()=> SortNumber(sort,"telefono",setEmpleado,empleado,setSort)}><ButtonSort col="Phone" /></th>
+              <th onClick={()=> SortItem(sort,"correo",setEmpleado,empleado,setSort)}><ButtonSort col="E-mail" /></th>
+              <th onClick={()=> SortItem(sort,"estado",setEmpleado,empleado,setSort)}><ButtonSort col="Status" /></th>
+              <th>Actions</th>
 
               
             </HeaderTable>
@@ -307,19 +307,19 @@ let pass=(item.nombre.slice(0,2)+"$"+item.idempleado+item.apellido.slice(-2)+Mat
       
 
  
-      <InputText label="Nombre" type="text" value={nombre} onChange={setNombre} required />
- <InputText label="appelido" type="text"  value={apellido} onChange={setApellido} required />
+      <InputText label="First Name" type="text" value={nombre} onChange={setNombre} required />
+ <InputText label="Last Name" type="text"  value={apellido} onChange={setApellido} required />
  {/**   <InputText label="codigo" type="text" value={idempleado} onChange={setIdEmpleado}  hidden/>
  <InputText label="Numero de DPI" type="text" max={12} value={dpi} onChange={setDpi} required />
  */}
- <InputText label="Telefono" type="number" max={9} value={telefono} onChange={setTelefono} required />
- <InputText label="Correo" type="email" value={correo} onChange={setCorreo} required />
- <InputState label="Estado" value={estado} onChange={setEstado} />
+ <InputText label="Phone" type="number" max={9} value={telefono} onChange={setTelefono} required />
+ <InputText label="E-mail" type="email" value={correo} onChange={setCorreo} required />
+ <InputState label="Status" value={estado} onChange={setEstado} />
  
     </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" className="btn btn-primary" >Guardar</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" className="btn btn-primary" >Save</button>
       </div>
     </div>
   </div>

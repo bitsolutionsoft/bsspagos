@@ -33,6 +33,8 @@ export default function HeaderBar(props) {
  :null}
  </div>
 */}
+ {props.hiddenSearch ? null  
+:
 <div className='input-search'>
 <span className='icon-search'><i className="bi bi-search"></i></span>
  <input className='text-search' type='text' onChange={(e)=>props.onChange(e.target.value)} value={props.value}/>
@@ -41,10 +43,16 @@ export default function HeaderBar(props) {
  <span className='icon-search-delete' onClick={()=>props.onChange("")}><i className="bi bi-x"></i></span> 
  :null}
  </div>
+ }
 <div>
+
   {/**
  <img  className='logo'src={campion} alt='logo'/> */}
- <button className='btn btn-primary btn-sm' onClick={props.onClick}>Add new</button>
+  {props.hiddenNew ? null 
+:
+<button className='btn btn-primary btn-sm' onClick={props.onClick}>Add new</button>
+}
+ 
  </div>
 </div>
   )

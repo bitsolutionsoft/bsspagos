@@ -8,10 +8,12 @@ import InputTextIcon from '../../components/Inputs/InputTextIcon'
 import InputTextMoney from '../../components/Inputs/InputMoney'
 import Datos from '../../services/Datos';
 import { addGrantedToList } from '../../app/reducers/granted/grantedSlice';
+import url from '../../assets/img/logo.jpg'
 const md5=require("md5");
 
+
 function  Login(){  
-  const url="https://raw.githubusercontent.com/bitsolutionsoft/img/main/bss.png"
+ // const url="https://raw.githubusercontent.com/bitsolutionsoft/img/main/bss.png"
   const dispatch=useDispatch();
   const [showPassword, setShowPassword] = useState(false)
   const [usuario, setUsuario] = useState("")

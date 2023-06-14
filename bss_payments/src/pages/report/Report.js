@@ -18,6 +18,7 @@ function Report() {
   const [datosInforme, setDatosInforme] = useState([])
   const [datosInformeAux, setDatosInformeAux] = useState([])
   const [sort, setSort] = useState("ASC");
+  const [totalPayment, setTotalPayment] = useState("")
 
   useEffect(()=>{
     getInformePagos();
@@ -30,11 +31,24 @@ function Report() {
     if(data !== null){
       setDatosInforme(data)
       setDatosInformeAux(data)
+      CalcTotalPaymentCancel(data)
       return
     }
     setDatosInforme([])
     setDatosInformeAux([])
+    
      
+  }
+
+  const CalcTotalPaymentCancel = (data) => {
+    let total=0;
+    
+      for(let i=0; i<data.length; i++){
+        console.log()
+        total=Number(total)+Number(data[i].total)
+      
+    }
+    setTotalPayment(total)
   }
 
 
@@ -52,30 +66,36 @@ function Report() {
   return (
     <>
        <div className='div-header'>
-              <HeaderBar value={buscar} onChange={Busqueda} onClick={AbrirNuevo} />
+              <HeaderBar value={buscar} onChange={Busqueda} onClick={AbrirNuevo}  hiddenNew={true} />
     </div>   
         <div className='div-body'>
           <div className='div-header-table'>
        <label className='item-title'>Report </label>
+       
+ <div className='div-inversion'>
+<label className='title-card-info'>Payments cancel: </label>
+<label className='desc-card-info'>{Moneda(totalPayment)}</label>
+ </div>
        </div>
 
 <div className="row mb-2">
 <div className="col-12"> 
+{/*
                <div className="form-check form-check-inline">
                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Por Dia"  /*onClick={(e)=>verInforme("Dia")}*//>
+                  <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Por Dia"  /*onClick={(e)=>verInforme("Dia")}/>
                   <label className="form-check-label" htmlFor="exampleRadios1">Por Día</label>
                </div>
                <div className="form-check form-check-inline">
-                 <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Por semana" /* onClick={(e)=>verInforme("Semana")}*/ />
+                 <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Por semana" /* onClick={(e)=>verInforme("Semana")/ />
                  <label className="form-check-label" htmlFor="exampleRadios2">Por semana</label>
                </div>
                <div className="form-check form-check-inline">
-                 <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="Por mes" /* onClick={(e)=>verInforme("Mes")}*//>
+                 <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="Por mes" /* onClick={(e)=>verInforme("Mes")//>
                  <label className="form-check-label" htmlFor="exampleRadios3">Por mes</label> <br/>
                </div> 
                
-               </div>   
+               </div>
 
                <div className="col-12">
            <div className="row d-flex">
@@ -83,7 +103,7 @@ function Report() {
             <div className="form-outline mb-4 col-4">
 <div className='input-group'>
           <span className="input-group-text">Fecha inicial</span>
-          <input type="date" className="form-control form-control-sm" /*value={fechainicio} onChange={(e)=>setfechainicio(moment(e.target.value).format("YYYY-MM-DD"))}*//>
+          <input type="date" className="form-control form-control-sm" /*value={fechainicio} onChange={(e)=>setfechainicio(moment(e.target.value).format("YYYY-MM-DD"))}/>
           
       </div>
        
@@ -92,20 +112,20 @@ function Report() {
   <div className="form-outline mb-4 col-4" >
       <div className='input-group'>
           <span className="input-group-text">Fecha final</span>
-          <input type="date"  id="exampleFormControlInput1"  className="form-control form-control-sm"/*  value={fechaFinal} onChange={(e)=>setfechaFinal(moment(e.target.value).format("YYYY-MM-DD"))}*/ />
+          <input type="date"  id="exampleFormControlInput1"  className="form-control form-control-sm"/*  value={fechaFinal} onChange={(e)=>setfechaFinal(moment(e.target.value).format("YYYY-MM-DD"))} />
           
       </div>
        
   </div>
 
 <div className="col-auto">
-<button type="button" className="ml-1 me-2 btn btn-success"/* onClick={()=>verInforme("Rango")} */>Buscar</button>
+<button type="button" className="ml-1 me-2 btn btn-success"/* onClick={()=>verInforme("Rango")} >Buscar</button>
 </div> 
 </div>
- </div>            
-<div className="row">
- 
-</div>
+
+
+ </div> 
+ */}           
 
 <TableContainer>
             <HeaderTable>

@@ -17,12 +17,12 @@ function ErrorPage() {
   return (
     <>
     <div className='div-header'>
-              <HeaderBar value={buscar} onChange={Busqueda} onClick={CrearNuevo} />
+              <HeaderBar value={buscar} onChange={Busqueda} onClick={CrearNuevo} hiddenSearch={true} hiddenNew={true} />
     </div>
         <div className='div-body'>
        
               <div className='d-flex flex-column  justify-content-center align-items-center '>
-                 <h5>Welcome to Sei Group</h5> 
+                 <h1>Welcome to Sei Group</h1> 
                  
                  <p>Framing Interior & Exterior </p> 
                      <img src={welcome} alt="img" className='img-welcome'/>

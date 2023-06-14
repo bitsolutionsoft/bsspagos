@@ -127,13 +127,13 @@ const setDataTipotrabajo = (tipotrabajo) => {
 }
 
 const AbrirActualizar = (tipotrabajo) => {
-    setTitulo("Actualizar Tipo Trabajo") 
+    setTitulo("Update Type of Work") 
   setDataTipotrabajo(tipotrabajo)
   const myModal=new bootstrap.Modal(document.getElementById("exampleModal"));
  myModal.show();
 }
 const AbrirNuevo = () => {
-    setTitulo("Ingresar Tipo Trabajo")
+    setTitulo("Insert Type of Work")
     Limpiar();
   setAccion("new")
  const myModal=new bootstrap.Modal(document.getElementById("exampleModal"));
@@ -153,15 +153,15 @@ const AbrirNuevo = () => {
     </div>   
         <div className='div-body'>
         <div className='div-header-table'>
-       <label className='item-title'>Lista de tipos de trabajo</label></div>
+       <label className='item-title'>Work type list</label></div>
           {tipotrabajo.length > 0 ?
           <TableContainer>
             <HeaderTable>
               {/*<th onClick={()=> SortItem(sort,"nombre",setTipotrabajo,tipotrabajo,setSort)}><ButtonSort col="Nombre" /></th>*/}
-              <th onClick={()=> SortItem(sort,"tipo",setTipotrabajo,tipotrabajo,setSort)}><ButtonSort col="Tipo" /></th>
-              <th onClick={()=> SortNumber(sort,"precio",setTipotrabajo,tipotrabajo,setSort)}><ButtonSort col="Precio" /></th>
-              <th onClick={()=> SortItem(sort,"estado",setTipotrabajo,tipotrabajo,setSort)}><ButtonSort col="Estado" /></th>
-              <th>Acciones</th>
+              <th onClick={()=> SortItem(sort,"tipo",setTipotrabajo,tipotrabajo,setSort)}><ButtonSort col="Type" /></th>
+              <th onClick={()=> SortNumber(sort,"precio",setTipotrabajo,tipotrabajo,setSort)}><ButtonSort col="Price" /></th>
+              <th onClick={()=> SortItem(sort,"estado",setTipotrabajo,tipotrabajo,setSort)}><ButtonSort col="Status" /></th>
+              <th>Actions</th>
             </HeaderTable>
             <BodyTable>
               {tipotrabajo.map((item,index)=>(
@@ -204,14 +204,14 @@ const AbrirNuevo = () => {
       
 
  {/*<InputText label="Nombre" type="text" value={nombre} onChange={setNombre} required  />*/}
- <InputText label="Tipo" type="text"  value={tipo} onChange={setTipo} required />
- <InputText label="Precio" type="text" value={precio} onChange={setPrecio} required />
- <InputState label="Estado" value={estado} onChange={setEstado} />
+ <InputText label="Type" type="text"  value={tipo} onChange={setTipo} required />
+ <InputText label="Price" type="text" value={precio} onChange={setPrecio} required />
+ <InputState label="Status" value={estado} onChange={setEstado} />
  
     </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"    >Cancelar</button>
-        <button type="submit" className="btn btn-primary" >Guardar</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"    >Cancel</button>
+        <button type="submit" className="btn btn-primary" >Save</button>
       </div>
     </div>
   </div>

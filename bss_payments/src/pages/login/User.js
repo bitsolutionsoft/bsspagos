@@ -68,7 +68,7 @@ const UpdateUser =async (e) => {
 
 <form className=' p-5 rounded form-login'  onSubmit={(e)=>UpdateUser(e)}>
 <div className='d-flex justify-content-center align-items-center mb-4'>
-<h4 className="modal-title  " id="modalUserLabel">Update Usermane and password</h4>
+<h4 className="modal-title  " id="modalUserLabel">Update User and Password</h4>
 </div>
 <div className='d-flex justify-content-center align-items-center '>
 

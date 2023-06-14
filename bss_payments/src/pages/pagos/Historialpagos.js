@@ -145,16 +145,17 @@ const IngresarNuevo = async (datos) => {
 const SavePayments = async () => {
   for (let i = 0; i < detallepagos.length; i++) {
     if(detallepagos[i].select){
-   //  await IngresarNuevo(getDataPagos(0,detallepagos[i].idhorastrabajo,detallepagos[i].precio,detallepagos[i].hora_total,0,0,0,CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio)))
-     setDatosFact(datosFact=>[datosFact,...detallepagos[i]])
+     await IngresarNuevo(getDataPagos(0,detallepagos[i].idhorastrabajo,detallepagos[i].precio,detallepagos[i].hora_total,0,0,0,CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio)))
+     setDatosFact(datosFact=>[...datosFact,detallepagos[i]])
     }}
 }
 
 
 const GuardarCambios =async () => {
 try {
+  setDatosFact([])
  await SavePayments();
-  //await getDetallePAgos()
+  await getDetallePAgos()
   const modal=new bootstrap.Modal(document.getElementById("modalPdf"));
   modal.show();
 setTotalPay2(totalPay)
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
       
     <div className='div-body'>
       <div className='div-header-table'>
-       <label className='item-title'>Dias trabajados</label>
+       <label className='item-title'>Days worked</label>
       
 <div className="form-check">
 <label className="form-check-label" htmlFor="flexCheckDefault">Total:  </label>
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
           <TableContainer>
             <HeaderTable>
       
-              <th onClick={()=> SortItem(sort,"direccion",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Direccion" /></th>          
+              <th onClick={()=> SortItem(sort,"direccion",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Address" /></th>          
               <th onClick={()=> SortItem(sort,"fase",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Phase" /></th>    
               <th onClick={()=> SortItem(sort,"tipo",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Work" /></th>    
               <th onClick={()=> SortNumber(sort,"fecha",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Date" /></th>  

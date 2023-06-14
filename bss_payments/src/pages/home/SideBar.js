@@ -91,7 +91,7 @@ const CerrarSesion = () => {
     <img  className='logo'src={logo} alt='logo'/>
     </div> 
     <div className='div-title'>
-   <label className='title-sidebar'>BssPagos</label> 
+   <label className='title-sidebar'>SEI GROUP</label> 
     </div>
     <hr />
      <ul >

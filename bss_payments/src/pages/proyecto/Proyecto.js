@@ -129,7 +129,7 @@ const AbrirActualizar = (proyecto) => {
  myModal.show();
 }
 const AbrirNuevo = () => {
-    setTitulo("Ingresar Proyecto")
+    setTitulo("Insert Project")
     Limpiar();
   setAccion("new")
  const myModal=new bootstrap.Modal(document.getElementById("exampleModal"));
@@ -169,9 +169,9 @@ const redirectToPhase = (item) => {
           {proyecto.length > 0 ?
           <TableContainer>
             <HeaderTable>
-              <th onClick={()=> SortItem(sort,"nombre",setProyecto,proyecto,setSort)}><ButtonSort col="Project" /></th>
-              <th onClick={()=> SortItem(sort,"direccion",setProyecto,proyecto,setSort)}><ButtonSort col="Address" /></th>
-              <th onClick={()=> SortItem(sort,"estado",setProyecto,proyecto,setSort)}><ButtonSort col="Status" /></th>
+              <th onClick={()=> SortItem(sort,"Project Name",setProyecto,proyecto,setSort)}><ButtonSort col="Project" /></th>
+              <th onClick={()=> SortItem(sort,"Address",setProyecto,proyecto,setSort)}><ButtonSort col="Address" /></th>
+              <th onClick={()=> SortItem(sort,"Status",setProyecto,proyecto,setSort)}><ButtonSort col="Status" /></th>
               <th>Phase</th>
               
               <th>Actions</th>
@@ -216,14 +216,14 @@ const redirectToPhase = (item) => {
       <div className="modal-body">
       
  
- <InputText label="Nombre" type="text" value={nombre} onChange={setNombre} required />
- <InputText label="Direccion" type="text"  value={direccion} onChange={setDireccion} required />
- <InputState label="Estado" value={estado} onChange={setEstado} />
+ <InputText label="Project Name" type="text" value={nombre} onChange={setNombre} required />
+ <InputText label="Address" type="text"  value={direccion} onChange={setDireccion} required />
+ <InputState label="Status" value={estado} onChange={setEstado} />
  
     </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"    >Cancelar</button>
-        <button type="submit" className="btn btn-primary" >Guardar</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" className="btn btn-primary" >Save</button>
       </div>
     </div>
   </div>

@@ -149,7 +149,7 @@ const CalcTotalPaymentPending = (data) => {
      <>
         
         <div className='div-header'>
-        <HeaderBar value={buscar} onChange={Busqueda} onClick={AbrirNuevo} />
+        <HeaderBar value={buscar} onChange={Busqueda} onClick={AbrirNuevo} hiddenNew={true}  />
     </div>  
 
     
