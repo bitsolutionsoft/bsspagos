@@ -21,6 +21,7 @@ import { textDelete, textInsert, textQuestion, textUpdate } from '../../utils/Ms
 import { ConvertirAHora } from '../../utils/ConvertirAHora'
 import Moneda from '../../utils/Moneda'
 import { CalcTotalPagoDia } from '../../utils/CalcTotalPagoDia'
+import FiltarEmp from '../../utils/FilterEmp'
 
 const bootstrap=require('bootstrap');
 const moment=require("moment")
@@ -208,7 +209,7 @@ const AbrirNuevo = () => {
 
   const Busqueda = (params) => {
     setBuscar(params)
-    FiltarItems(params,setEmpleado,empleadoAux)    
+    FiltarEmp(params,setEmpleado,empleadoAux)    
   }
 
   const getProject = async() => {

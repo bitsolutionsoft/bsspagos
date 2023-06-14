@@ -5,7 +5,7 @@ import SortItem from '../../utils/SortItem';
 import ButtonSort from '../../components/Table/ButtonSort';
 import SortNumber from '../../utils/SortNumber';
 import { DataPago, DataProject, DataUsuario } from '../../context/Context';
-import { PDFViewer } from '@react-pdf/renderer';
+import { Image, PDFViewer } from '@react-pdf/renderer';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 import HeaderTable from '../../components/Table/HeaderTable';
@@ -22,7 +22,7 @@ import Empleado from '../empleado/Empleado';
 import Moneda from '../../utils/Moneda';
 import { ConvertirAHora } from '../../utils/ConvertirAHora';
 import { CalcTotalPagoDia } from '../../utils/CalcTotalPagoDia';
-
+import welcome from '../../assets/img/logo.jpg'
 const bootstrap=require("bootstrap");
 
 
@@ -47,6 +47,7 @@ const [accion, setAccion] = useState("new");
     const [datosFact, setDatosFact] = useState([]);
     const [pagoAux, setPagoAux]=useState([]);
     const [totalPay, setTotalPay] = useState("")
+    const [totalPay2, setTotalPay2] = useState("")
     
     useEffect(()=>{
         getDetallePAgos();
@@ -144,18 +145,19 @@ const IngresarNuevo = async (datos) => {
 const SavePayments = async () => {
   for (let i = 0; i < detallepagos.length; i++) {
     if(detallepagos[i].select){
-     await IngresarNuevo(getDataPagos(0,detallepagos[i].idhorastrabajo,detallepagos[i].precio,detallepagos[i].hora_total,0,0,0,CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio)))
-   
+   //  await IngresarNuevo(getDataPagos(0,detallepagos[i].idhorastrabajo,detallepagos[i].precio,detallepagos[i].hora_total,0,0,0,CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio)))
+     setDatosFact(datosFact=>[datosFact,...detallepagos[i]])
     }}
 }
 
 
 const GuardarCambios =async () => {
 try {
- // await SavePayments();
+ await SavePayments();
   //await getDetallePAgos()
   const modal=new bootstrap.Modal(document.getElementById("modalPdf"));
   modal.show();
+setTotalPay2(totalPay)
 setTotalPay("")
 } catch (error) {
   console.log(error)
@@ -211,7 +213,13 @@ const styles = StyleSheet.create({
       display: 'flex',
       flexWrap: 'wrap',
       color:"gray",
-  }
+  },
+  logo: {
+    width: 74,
+    height: 66,
+    marginLeft: 'auto',
+    marginRight: 'auto'
+}
       })   
       
       
@@ -303,17 +311,29 @@ const styles = StyleSheet.create({
       </div>
       <div className="modal-body">
       <PDFViewer style={{width:'100%',height:"90vh"}}>
-      <Document size="LETTER" style={{padding:10}}>
-    <Page size="A4" style={styles.page}>
-     <View >
+      <Document >
+    <Page  size="LETTER" style={{padding:10}}>
+     <View style={styles.header}> 
+      
       <Text style={styles.cell} >Sei Group</Text>
-      <Text style={styles.header}>Framing Interio & Exterior</Text>
-      <Text  style={styles.cells}>Employee:</Text>
+      <Text style={styles.cells}>Framing Interio & Exterior</Text>
+     <Image style={styles.logo} src={welcome} /> 
      </View>
+
+     <View style={styles.tableRow} >
+                 
+                    <Text  style={{ flex: 1, alignSelf: 'stretch',padding:2, fontSize:13, color:'red',textAlign: 'center', }} >Address</Text>    
+                    <Text  style={{ flex: 1, alignSelf: 'stretch',padding:2, fontSize:13, color:'red',textAlign: 'center', }} >Name</Text>    
+                    <Text  style={{ flex: 1, alignSelf: 'stretch',padding:2, fontSize:13, color:'red',textAlign: 'center', }} >Work Type</Text>    
+                    <Text  style={{ flex: 1, alignSelf: 'stretch',padding:2, fontSize:13, color:'red',textAlign: 'center', }} >Date</Text> 
+                    <Text  style={{ flex: 1, alignSelf: 'stretch',padding:2, fontSize:13, color:'red',textAlign: 'center', }} >Total Time scored</Text> 
+                    <Text  style={{ flex: 1, alignSelf: 'stretch',padding:2, fontSize:13, color:'red',textAlign: 'center', }} >Total</Text>               
+              
+            </View>
      <View>
       {
-        detallepagos.length >0 ?
-        detallepagos.map((item,index)=>(
+        datosFact.length >0 ?
+        datosFact.map((item,index)=>(
             <View key={index} style={styles.tableRow}>
 
                   <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12, }}>{item.direccion}</Text>
@@ -331,6 +351,10 @@ const styles = StyleSheet.create({
         :null
       }
      </View>
+     <View  style={styles.tableRow}>
+
+<Text style={{ flex: 1, alignSelf: 'rigth', fontSize:18, marginVertical:5 }}>Total:  {Moneda(totalPay2)}</Text>
+</View>
     </Page>
   </Document>
   </PDFViewer>

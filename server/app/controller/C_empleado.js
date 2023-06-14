@@ -111,7 +111,7 @@ exports.ViewPagos=async(req,res)=>{
 
     exports.ViewPagosCancel=async(req,res)=>{
         try {
-            const empleado=await Empleado.ViewPagos();
+            const empleado=await Empleado.ViewPagosCancel();
             console.log(empleado);
             if(empleado !== null){
                 res.send({res:empleado})

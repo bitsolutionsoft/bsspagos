@@ -8,10 +8,16 @@ import HeaderBar from '../../components/Header/HeaderBar';
 import Datos from '../../services/Datos'
 import Moneda from '../../utils/Moneda';
 import { ConvertirAHora } from '../../utils/ConvertirAHora';
+import FiltarItems from '../../utils/FiltrarItems';
+import SortItem from '../../utils/SortItem';
+import ButtonSort from '../../components/Table/ButtonSort';
+import FiltarEmp from '../../utils/FilterEmp';
 
 function Report() {
   const [buscar, setBuscar] = useState("")
   const [datosInforme, setDatosInforme] = useState([])
+  const [datosInformeAux, setDatosInformeAux] = useState([])
+  const [sort, setSort] = useState("ASC");
 
   useEffect(()=>{
     getInformePagos();
@@ -20,19 +26,24 @@ function Report() {
 
   const getInformePagos =async () => {
     let data=await Datos.getDatos("emppagocancel")
+    console.log(data)
     if(data !== null){
       setDatosInforme(data)
-      
+      setDatosInformeAux(data)
       return
     }
     setDatosInforme([])
+    setDatosInformeAux([])
      
   }
 
 
+
   const Busqueda = (params) => {
     setBuscar(params)
+    FiltarEmp(params,setDatosInforme,datosInformeAux)    
   }
+
   const AbrirNuevo = (params) => {
     
   }
@@ -98,7 +109,11 @@ function Report() {
 
 <TableContainer>
             <HeaderTable>
-              <th>First Name Last Name</th>            
+            <th onClick={()=> SortItem(sort,"empleado",setDatosInforme,datosInforme,setSort)}><ButtonSort col="First Name Last Name" /></th>
+                    
+              <th>Project</th> 
+              <th>Phase</th> 
+              <th>Work Type</th> 
               <th>Hours worked</th> 
               <th>full payment</th>
               
@@ -107,15 +122,15 @@ function Report() {
 
             {datosInforme.map((item,index)=>(
                 <tr key={index}>
-                  <td>{item.nombre}</td>
+                  <td>{item.empleado}</td>
+                  <td>{item.proyecto}</td>
                   <td>{item.fase}</td>
                   <td>{item.tipo}</td>
-                  <td>{moment( item.fecha).format("MM/DD/YYYY")}</td> 
-                  <td>{moment( item.hora_inicio).format("hh:mm")}</td> 
-                  <td>{moment( item.hora_final).format("hh:mm")}</td> 
+                  
                   
                   <td>{ConvertirAHora(item.hora_total) }</td>
-                  <td>{item.precio}</td>
+                  
+                  <td>{Moneda(item.total) }</td>
             
                   {/* <td><Estado estado={item.estado}/></td>*/}
                   

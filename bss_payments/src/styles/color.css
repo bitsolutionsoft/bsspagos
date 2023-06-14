@@ -1,7 +1,7 @@
 :root{
     --primary:#fff;
     --secondary:#13acf9;
-    --acent:#008fc9;
+    --acent:#624cab;
     --texto:#333;
     --title:#3b3b3b;
     --search:#3b3b3b;
@@ -10,7 +10,7 @@
     --warning:#ffd23d;
     --danger:#fd3a3a;
     --shadow:#8f8f8f48;
-    --odd:#e2f8fd;
+    --odd:#f1fafc;
     --hover:#fff7e7;
     
 }

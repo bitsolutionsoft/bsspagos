@@ -28,7 +28,7 @@ function Router(app){
    app.get("/empleado/viewone/:id", IsLogin,empleado.ViewOne)
    app.get("/empleado/view", IsLogin,empleado.View)
    app.get("/emppago/view", IsLogin,empleado.ViewPagos)
-   app.get("/empagocancel/view", IsLogin,empleado.ViewPagosCancel)
+   app.get("/emppagocancel/view", IsLogin,empleado.ViewPagosCancel)
    app.get("/emppagosxd/viewxd/:id", IsLogin,empleado.ViewPagosxd)
 
    app.post("/horastrabajo",IsLogin, horastrabajo.Create)

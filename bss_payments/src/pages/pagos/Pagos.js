@@ -20,6 +20,7 @@ import Historialpagos from './Historialpagos';
 import { DataPago, DataProject } from '../../context/Context';
 import { ConvertirAHora } from '../../utils/ConvertirAHora'
 import Moneda from '../../utils/Moneda';
+import FiltarEmp from '../../utils/FilterEmp';
 
 
 const bootstrap=require('bootstrap');
@@ -73,7 +74,7 @@ useEffect(()=>{
 
   const Busqueda = (params) => {
     setBuscar(params)
-    FiltarItems(params,setEmpleado,empleadoAux)    
+    FiltarEmp(params,setEmpleado,empleadoAux)    
   }
 
   const redirectTohistorial = (item) => {

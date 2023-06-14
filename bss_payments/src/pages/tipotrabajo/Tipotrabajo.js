@@ -42,6 +42,7 @@ getTipotrabajo();
 
   const getTipotrabajo =async () => {
     let data=await Datos.getDatos("tipotrabajo")
+    console.log(data)
     if(data !== null){
       setTipotrabajo(data)
       setTipotrabajoAux(data)
