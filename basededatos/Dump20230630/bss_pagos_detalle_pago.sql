@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bss_pagos
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `info`
+-- Dumping data for table `detalle_pago`
 --
 
-LOCK TABLES `info` WRITE;
-/*!40000 ALTER TABLE `info` DISABLE KEYS */;
-/*!40000 ALTER TABLE `info` ENABLE KEYS */;
+LOCK TABLES `detalle_pago` WRITE;
+/*!40000 ALTER TABLE `detalle_pago` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detalle_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -33,4 +33,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-13 13:46:21
+-- Dump completed on 2023-06-30 17:07:32
