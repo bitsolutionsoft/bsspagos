@@ -3,9 +3,9 @@ const util=require('util');
  const query=util.promisify(Connection.query).bind(Connection);
 
 const Pago=function(pago){
-    this.idpago=pago.idpago,
-    this.idhoratrabajo=pago.idhoratrabajo,
-    this.precio=pago.precio,
+    this.idpago=pago.idpago,    
+    this.idempleado=pago.idempleado,
+    this.idtipopago=pago.idtipopago,
     this.cantidadhora=pago.cantidadhora,
     this.horasextra=pago.horasextra,
     this.subtotal=pago.subtotal,
@@ -20,12 +20,12 @@ Pago.View= async ()=>{
 
 
 Pago.Create= async (pago)=>{
-    return await query(`call ingreso_pagos(${pago.idpago}, ${pago.idhoratrabajo},${pago.precio},${pago.cantidadhora},${pago.horasextra},${pago.subtotal},${pago.descuento},${pago.total},"new");`);
+    return await query(`call ingreso_pagos(${pago.idpago}, ${pago.idempleado},${pago.idtipopago},${pago.cantidadhora},${pago.horasextra},${pago.subtotal},${pago.descuento},${pago.total},"new");`);
 }
 
 
 Pago.Update= async (pago)=>{
-    return await query(`call ingreso_pagos(${pago.idpago}, ${pago.idhoratrabajo},${pago.precio},${pago.cantidadhora},${pago.horasextra},${pago.subtotal},${pago.descuento},${pago.total},"update");`);
+    return await query(`call ingreso_pagos(${pago.idpago}, ${pago.idempleado},${pago.idtipopago},${pago.cantidadhora},${pago.horasextra},${pago.subtotal},${pago.descuento},${pago.total},"update");`);
 }
 
 

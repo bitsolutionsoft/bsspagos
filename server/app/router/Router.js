@@ -13,7 +13,8 @@ function Router(app){
     const faseproyecto=require("../controller/C_faseproyecto")
     const tipotrabajo=require("../controller/C_tipotrabajo")
     const horastrabajo=require("../controller/C_horastrabajo")
-
+    const tipopago=require("../controller/C_tipopago");
+    const detallepago=require("../controller/C_detallepago.js")
   
 
     
@@ -33,6 +34,8 @@ function Router(app){
 
    app.post("/horastrabajo",IsLogin, horastrabajo.Create)
    app.post("/horastrabajo/update",IsLogin, horastrabajo.Update)
+   app.post("/horatotal/update",IsLogin, horastrabajo.UpdateHT)
+   app.post("/horaextra/update",IsLogin, horastrabajo.UpdateHE)
    app.post("/horastrabajo/delete/:id", IsLogin,horastrabajo.Delete)
    app.get("/horastrabajo/viewone/:id", IsLogin,horastrabajo.ViewOne)
    app.get("/horastrabajo/view", IsLogin,horastrabajo.View)
@@ -62,6 +65,18 @@ function Router(app){
    app.post("/pagos/delete/:id", IsLogin,pagos.Delete)
    app.get("/pagos/viewone/:id", IsLogin,pagos.ViewOne)
    app.get("/pagos/view", IsLogin,pagos.View)
+
+   app.post("/detallepago",IsLogin, detallepago.Create)
+   app.post("/detallepago/update",IsLogin, detallepago.Update)
+   app.post("/detallepago/delete/:id", IsLogin,detallepago.Delete)
+   app.get("/detallepago/viewone/:id", IsLogin,detallepago.ViewOne)
+   app.get("/detallepago/view", IsLogin,detallepago.View)
+
+   app.post("/tipopago",IsLogin, tipopago.Create)
+   app.post("/tipopago/update",IsLogin, tipopago.Update)
+   app.post("/tipopago/delete/:id", IsLogin,tipopago.Delete)
+   app.get("/tipopago/viewone/:id", IsLogin,tipopago.ViewOne)
+   app.get("/tipopago/view", IsLogin,tipopago.View)
 
    
     app.post('/img/upload',upload.create);

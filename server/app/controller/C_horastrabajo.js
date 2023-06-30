@@ -21,6 +21,30 @@ exports.Update=async(req,res)=>{
         console.log(`Error:  ${er.sqlMessage}. \n SQL: ${er.sql}`);
     }
 }
+
+exports.UpdateHT=async(req,res)=>{
+    try {
+        const horastrabajo=await HorasTrabajo.UpdateHT(new HorasTrabajo(req.body));
+        console.log(horastrabajo)
+        res.status(200).send({res:"ingresado corectamento"});
+    } catch (er) {
+        console.log(er)
+        res.status(503).send({res: "No se puedo ingresar, erorr"})
+        console.log(`Error:  ${er.sqlMessage}. \n SQL: ${er.sql}`);
+    }
+}
+
+exports.UpdateHE=async(req,res)=>{
+    try {
+        const horastrabajo=await HorasTrabajo.UpdateHE(new HorasTrabajo(req.body));
+        console.log(horastrabajo)
+        res.status(200).send({res:"ingresado corectamento"});
+    } catch (er) {
+        console.log(er)
+        res.status(503).send({res: "No se puedo ingresar, erorr"})
+        console.log(`Error:  ${er.sqlMessage}. \n SQL: ${er.sql}`);
+    }
+}
 exports.Delete=async(req,res)=>{
     try {
         console.log(req.params.id)
