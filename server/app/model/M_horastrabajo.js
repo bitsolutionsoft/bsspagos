@@ -27,6 +27,9 @@ HorasTrabajo.Create= async (horastrabajo)=>{
 
 
 HorasTrabajo.Update= async (horastrabajo)=>{
+    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto},${horastrabajo.idtipotrabajo},${horastrabajo.idempleado},"update");`);
+}
+HorasTrabajo.UpdateHF= async (horastrabajo)=>{
     return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto},${horastrabajo.idtipotrabajo},${horastrabajo.idempleado},"updatef");`);
 }
 HorasTrabajo.UpdateHT= async (horastrabajo)=>{

@@ -14,6 +14,7 @@ import ButtonsOptions from '../../components/Table/ButtonsOptions';
 import Estado from '../../components/Table/Estado';
 import InputText from '../../components/Inputs/InputText';
 import InputState from '../../components/Inputs/InputState';
+import ErrorPage from '../home/ErrorPage';
 const bootstrap =require("bootstrap")
 
 
@@ -219,9 +220,7 @@ const Busqueda = (params) => {
             </BodyTable>
           </TableContainer>
           :
-        <div>
-       
-        </div>
+       <ErrorPage />
           
           }
 {/**modal para ingreso de fase de proyecto */}

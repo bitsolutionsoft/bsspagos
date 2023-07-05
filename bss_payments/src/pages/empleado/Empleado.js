@@ -18,7 +18,7 @@ import InputText from '../../components/Inputs/InputText'
 import InputState from '../../components/Inputs/InputState'
 import Estado from '../../components/Table/Estado'
 import Permisos from './Permisos'
-import { textDelete, textQuestion } from '../../utils/MsgText'
+import { textDelete, textInsert, textQuestion, textUpdate } from '../../utils/MsgText'
 import ErrorPage from '../home/ErrorPage'
 const md5=require("md5");
 const bootstrap=require('bootstrap');
@@ -55,7 +55,7 @@ getEmpleado();
   },[])
 
   const getEmpleado =async () => {
-    let data=await Datos.getDatos("empleados")
+    let data=await Datos.getDatos("empleado")
     if(data !== null){
       setEmpleado(data)
       setEmpleadoAux(data)
@@ -92,7 +92,7 @@ const IngresarNuevo = async () => {
   if(ingresado){
    getEmpleado();
     Limpiar()
-    swal("Exito","Se ingreso correctamente","success")
+    swal(textInsert.title,textInsert.msg,"success")
   }  
 }
 const ActualizarEmpleado =async () => {
@@ -100,7 +100,7 @@ const ActualizarEmpleado =async () => {
   if(actualizado){
     getEmpleado()
     Limpiar()
-    swal("Exito","Se actualizo correctamente","success")
+    swal(textUpdate.title,textUpdate.msg,"success")
   }  
 }
 const EliminarEmpleado =  (empleado) => {
@@ -121,7 +121,7 @@ const Borrar =async (empleado) => {
   let eliminado=await Datos.deleteItem("empleado",empleado.idempleado)
   if (eliminado) {
     getEmpleado();
-    swal("Exito","Se elimino correctamente", "success")
+    swal(textDelete.title,textDelete.msg, "success")
   }
 }
 
@@ -146,13 +146,13 @@ const setDataEmpleado = (empleado) => {
 }
 
 const AbrirActualizar = (empleado) => {
-  setTitulo("Actualizar Empleado")
+  setTitulo("update Employee")
   setDataEmpleado(empleado)
   const modal=new bootstrap.Modal(document.getElementById("exampleModal"));
  modal.show();
 }
 const AbrirNuevo = () => {
-  setTitulo("Ingresar Empleado")
+  setTitulo("Add new Employee")
   Limpiar()
   setAccion("new")
  const modal=new bootstrap.Modal(document.getElementById("exampleModal"));
@@ -184,7 +184,7 @@ const AbrirNuevo = () => {
               setAccess(true)    
               return
           }
-              swal("Lo siento","No tienes autorizacion para modificar los permiso","error")
+              swal("Sorry","You are not authorized to modify the permissions","error")
               return     
         
       }
@@ -229,7 +229,7 @@ e.preventDefault();
 let usuario=item.nombre.split(" ")[0]+"_"+item.apellido.slice(0,2)+item.idempleado;
 let pass=(item.nombre.slice(0,2)+"$"+item.idempleado+item.apellido.slice(-2)+Math.floor( Math.random()*10)).toLowerCase();
     if(getGranted("Add User")){
-      setTitulo("Agregar Usuario ")
+   
       setUsuario(usuario)
       setPass(pass)
       let modal= new bootstrap.Modal(document.getElementById("modalUser"));
@@ -341,19 +341,23 @@ let pass=(item.nombre.slice(0,2)+"$"+item.idempleado+item.apellido.slice(-2)+Mat
   <div className="modal-dialog modal-dialog-scrollable">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title " id="modalUserLabel">{titulo}</h5>
+        <h5 className="modal-title " id="modalUserLabel">Add Username</h5>
 
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
       </div>
       <div className="modal-body">
+        <div className='mb-3'>
+          <laber>Please, copy the username and password or share with the employee, once saved, it will no longer be visible.</laber>
+        </div>
+
       <InputText label="Username" type="text" value={usuario} onChange={setUsuario} required />
  <InputText label="password" type="text"  value={pass} onChange={setPass} required />
 
  
     </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" className="btn btn-primary" >Guardar</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" className="btn btn-primary" >Save</button>
       </div>
     </div>
   </div>

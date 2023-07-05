@@ -209,7 +209,7 @@ const SavePayments = async () => {
     }}
     return
   }
-  setLabelInfo("Please select typeo of payment");
+  setLabelInfo("Please select type of payment");
 }
 
 

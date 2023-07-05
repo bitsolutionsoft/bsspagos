@@ -22,6 +22,18 @@ exports.Update=async(req,res)=>{
     }
 }
 
+exports.UpdateHF=async(req,res)=>{
+    try {
+        const horastrabajo=await HorasTrabajo.UpdateHF(new HorasTrabajo(req.body));
+        console.log(horastrabajo)
+        res.status(200).send({res:"ingresado corectamento"});
+    } catch (er) {
+        console.log(er)
+        res.status(503).send({res: "No se puedo ingresar, erorr"})
+        console.log(`Error:  ${er.sqlMessage}. \n SQL: ${er.sql}`);
+    }
+}
+
 exports.UpdateHT=async(req,res)=>{
     try {
         const horastrabajo=await HorasTrabajo.UpdateHT(new HorasTrabajo(req.body));

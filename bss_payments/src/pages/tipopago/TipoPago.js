@@ -13,6 +13,8 @@ import FiltarItems from '../../utils/FiltrarItems';
 import InputText from '../../components/Inputs/InputText';
 import InputState from '../../components/Inputs/InputState';
 import Estado from '../../components/Table/Estado';
+import ErrorPage from '../home/ErrorPage';
+import { textInsert, textQuestion, textUpdate } from '../../utils/MsgText';
 
 const bootstrap=require('bootstrap');
 
@@ -70,7 +72,7 @@ const IngresarNuevo = async () => {
   if(ingresado){
    getTipoPago();
     Limpiar()
-    swal("Exito","Se ingreso correctamente","success")
+    swal(textInsert.title,textInsert.msg,"success")
   }  
 }
 const ActualizarTipoPago =async () => {
@@ -78,14 +80,14 @@ const ActualizarTipoPago =async () => {
   if(actualizado){
     getTipoPago()
     Limpiar()
-    swal("Exito","Se actualizo correctamente","success")
+    swal(textUpdate.title,textUpdate.msg,"success")
   }  
 }
 const EliminarProyecto =  (dataTipoPago) => {
   swal({
-    title:"Esta seguro de eliminar?",
-    text:"Una vez eliminado, ya no se podrá restablecer",
-    buttons:["Cancelar", "Eliminar"],
+    title:textQuestion.title,
+    text:textQuestion.msg,
+    buttons:[textQuestion.btncancel,textQuestion.btnOk],
     dangerMode:true
   }).then((yes)=>{
     if(yes){
@@ -180,7 +182,7 @@ const AbrirNuevo = () => {
             </BodyTable>
           </TableContainer>
           :
-          <Loader/>}
+          <ErrorPage/>}
 
         </div>
 

@@ -16,6 +16,7 @@ import { DataPago, DataProject } from '../../context/Context';
 
 import Moneda from '../../utils/Moneda';
 import FiltarEmp from '../../utils/FilterEmp';
+import ErrorPage from '../home/ErrorPage';
 
 
 function Pagos() {
@@ -165,7 +166,7 @@ const CalcTotalPaymentPending = (data) => {
             </BodyTable>
           </TableContainer>
           :
-          <Loader/>}
+          <ErrorPage/>}
 
         </div>
         </>

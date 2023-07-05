@@ -38,8 +38,8 @@ console.log(datos)
 if( datos !== null){
   const ls=window.localStorage;
   ls.setItem("usuario",JSON.stringify(datos[0]))
- //await  getUsuarioPermiso(datos);
- SaveToStoreUser(datos);
+ await  getUsuarioPermiso(datos);
+ await SaveToStoreUser(datos);
   return
 }
 const ls=window.localStorage;
@@ -59,7 +59,7 @@ async function  SaveToStoreUser(datos) {
 
 async function getUsuarioPermiso(datos){
   console.log(datos[0].idempleado)
-  let data= await Datos.getPrivilege(datos[0] );
+  let data= await Datos.getPrivilege(datos[0]);
   console.log(data)
   if(data !== null){
     await SaveToStoreUser(datos)

@@ -15,6 +15,8 @@ import InputState from '../../components/Inputs/InputState';
 import Estado from '../../components/Table/Estado';
 import { DataProject } from '../../context/Context';
 import FaseProyecto from './FaseProyecto';
+import ErrorPage from '../home/ErrorPage';
+import { textDelete, textInsert, textQuestion, textUpdate } from '../../utils/MsgText';
 const bootstrap=require('bootstrap');
 
 function Proyecto() {
@@ -72,7 +74,7 @@ const IngresarNuevo = async () => {
   if(ingresado){
    getProyecto();
     Limpiar()
-    swal("Exito","Se ingreso correctamente","success")
+    swal(textInsert.title,textInsert.msg,"success")
   }  
 }
 const ActualizarProyecto =async () => {
@@ -80,14 +82,14 @@ const ActualizarProyecto =async () => {
   if(actualizado){
     getProyecto()
     Limpiar()
-    swal("Exito","Se actualizo correctamente","success")
+    swal(textUpdate.title,textUpdate.msg,"success")
   }  
 }
 const EliminarProyecto =  (proyecto) => {
   swal({
-    title:"Esta seguro de eliminar?",
-    text:"Una vez eliminado, ya no se podrá restablecer",
-    buttons:["Cancelar", "Eliminar"],
+    title:textQuestion.question,
+    text:textQuestion.msg,
+    buttons:[textQuestion.btncancel, textQuestion.btnOk],
     dangerMode:true
   }).then((yes)=>{
     if(yes){
@@ -101,7 +103,7 @@ const Borrar =async (proyecto) => {
   let eliminado=await Datos.deleteItem("proyecto",proyecto.idproyecto)
   if (eliminado) {
     getProyecto();
-    swal("Exito","Se elimino correctamente", "success")
+    swal(textDelete.title,textDelete.msg, "success")
   }
 }
 
@@ -124,13 +126,13 @@ const setDataProyecto = (proyecto) => {
 }
 
 const AbrirActualizar = (proyecto) => {
-    setTitulo("Actualizar Proyecto")
+    setTitulo("Update Project")
   setDataProyecto(proyecto)
   const myModal=new bootstrap.Modal(document.getElementById("exampleModal"));
  myModal.show();
 }
 const AbrirNuevo = () => {
-    setTitulo("Insert Project")
+    setTitulo("Add new Project")
     Limpiar();
   setAccion("new")
  const myModal=new bootstrap.Modal(document.getElementById("exampleModal"));
@@ -192,7 +194,7 @@ const redirectToPhase = (item) => {
             </BodyTable>
           </TableContainer>
           :
-          <Loader/>}
+          <ErrorPage/>}
 
         </div>
 

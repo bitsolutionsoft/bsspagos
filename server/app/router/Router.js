@@ -34,6 +34,7 @@ function Router(app){
 
    app.post("/horastrabajo",IsLogin, horastrabajo.Create)
    app.post("/horastrabajo/update",IsLogin, horastrabajo.Update)
+   app.post("/horastrabajohf/update",IsLogin, horastrabajo.UpdateHF)
    app.post("/horatotal/update",IsLogin, horastrabajo.UpdateHT)
    app.post("/horaextra/update",IsLogin, horastrabajo.UpdateHE)
    app.post("/horastrabajo/delete/:id", IsLogin,horastrabajo.Delete)

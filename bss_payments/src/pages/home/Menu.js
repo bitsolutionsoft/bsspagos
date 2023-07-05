@@ -10,22 +10,23 @@ import Tipotrabajo from '../tipotrabajo/Tipotrabajo';
 import Asistencia from '../asistencia/Asistencia';
 import { addGrantedToList } from '../../app/reducers/granted/grantedSlice';
 import User from '../login/User';
-import Myassistance from '../myassistance/Myassistance';
 import Report from '../report/Report';
 import TipoPago from '../tipopago/TipoPago';
 import WelcomePage from './WelcomePage';
+import MyAsistencia from '../myassistance/Myassistance';
 
 
 function Menu() {
 const dispatch=useDispatch();
 const {idempleado}=useSelector(state =>state.user)
 const {center}=useSelector(state =>state.center)
+const {grantedList}=useSelector(state =>state.granted)
 const [permiso,setPermiso]=useState([]);
 
 useEffect(()=>{
   let newidem=idempleado;
   console.log(newidem)
-getUsuarioPermiso(newidem)
+//getUsuarioPermiso(newidem)
 },[])
 
  async function getUsuarioPermiso(idempleado){
@@ -38,19 +39,6 @@ getUsuarioPermiso(newidem)
     }
   }
 
-const getAcceso = (modulo) => {
-  if(permiso.length > 0){
-    for(let i in permiso)
-    {
-      if(permiso[i].nombre === modulo){
-        if(Number(permiso[i].acceso) === Number(1)){
-          return true
-        }
-        return false;
-      }
-    }
-  }
-}
 const Center =//useCallback( 
   () => {
   console.log(center)
@@ -67,7 +55,7 @@ const Center =//useCallback(
     case "Payments":
         return <Pagos  />
     case "My Assistance":
-        return <Myassistance  />
+        return <MyAsistencia  />
     case "My Account":
         return <User  />   
     case "Type of Payment":
@@ -80,16 +68,6 @@ const Center =//useCallback(
 
 }
 //,[center])
-/*estos son los nombres de los modulos
-'Empleado'
-'Usuario'
-'Permiso'
- 'Proyecto'
- 'Fase Proyecto'
-  'Horas Trabajo'
-   'Pagos'
-    'Tipo Trabajo'
-*/
 
   return (
     <div className='div-main'>

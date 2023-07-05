@@ -99,7 +99,7 @@ const CerrarSesion = () => {
     <hr />
      <ul >
       <OptionsMenu/>
-       <li  onClick={CerrarSesion} className='op-item'><i className="bi bi-box-arrow-left"></i><span>Salir</span></li>  
+       <li  onClick={CerrarSesion} className='op-item'><i className="bi bi-box-arrow-left"></i><span>Log out</span></li>  
       </ul> 
       </div>
       </div>

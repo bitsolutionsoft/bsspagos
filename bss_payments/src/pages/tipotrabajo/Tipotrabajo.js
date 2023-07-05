@@ -17,6 +17,8 @@ import FiltarItems from '../../utils/FiltrarItems'
 import InputText from '../../components/Inputs/InputText'
 import InputState from '../../components/Inputs/InputState'
 import Estado from '../../components/Table/Estado'
+import ErrorPage from '../home/ErrorPage'
+import { textDelete, textQuestion } from '../../utils/MsgText'
 const bootstrap=require('bootstrap');
 
 function Tipotrabajo() {
@@ -87,7 +89,7 @@ const ActualizarTipotrabajo =async () => {
 }
 const EliminarTipotrabajo =  (tipotrabajo) => {
   swal({
-    title:"Esta seguro de eliminar?",
+    title:textQuestion.title,
     text:"Una vez eliminado, ya no se podrá restablecer",
     buttons:["Cancelar", "Eliminar"],
     dangerMode:true
@@ -103,7 +105,7 @@ const Borrar =async (tipotrabajo) => {
   let eliminado=await Datos.deleteItem("tipotrabajo",tipotrabajo.idtrabajo)
   if (eliminado) {
     getTipotrabajo();
-    swal("Exito","Se elimino correctamente", "success")
+    swal(textDelete.title,textDelete.msg, "success")
   }
 }
 
@@ -121,7 +123,7 @@ const setDataTipotrabajo = (tipotrabajo) => {
   setIdTrabajo(tipotrabajo.idtrabajo);
   setNombre(tipotrabajo.nombre);
   setTipo(tipotrabajo.tipo);
-
+setPrecio(tipotrabajo.precio)
   setEstado(tipotrabajo.estado);
   setAccion("update");
 }
@@ -177,7 +179,7 @@ const AbrirNuevo = () => {
             </BodyTable>
           </TableContainer>
           :
-          <Loader/>}
+          <ErrorPage/>}
 
         </div>
 

@@ -23,6 +23,7 @@ import Moneda from '../../utils/Moneda'
 import { CalcTotalPagoDia } from '../../utils/CalcTotalPagoDia'
 import FiltarEmp from '../../utils/FilterEmp'
 import ButtonAdd from '../../components/Buttons/ButtonAdd'
+import ErrorPage from '../home/ErrorPage'
 
 const bootstrap=require('bootstrap');
 const moment=require("moment")
@@ -59,7 +60,7 @@ const [itemSelected, setItemSelected] = useState([]);
   useEffect(()=>{
 getHorasTrabajo();
 getEmpleado();
-getFase();
+  
 getProject();
 getTipoTrabajo();
   },[])
@@ -89,11 +90,10 @@ getTipoTrabajo();
 
   const Limpiar=()=>{
 
-    setDpi("");
-    setTelefono("");
-
-    setCorreo("");
-    setEstado("Pending");
+    setIdproyecto("")
+    setIdtipotrabajo("")
+    setItemSelected([])
+        setEstado("Pending");
   }
 
   const getDataAsistencia=(codigo)=>{
@@ -174,7 +174,7 @@ const IngresarNuevo = async () => {
   }  
 }
 const ActualizarAsistencia=async () => {
-  let actualizado= await Datos.updateItem("horastrabajo",getDataAsistencia(codigoempleado));
+  let actualizado= await Datos.updateItem("horastrabajo",getDataAsistencia(itemSelected.idhorastrabajo));
   if(actualizado){
     getHorasTrabajo()
     Limpiar()
@@ -184,7 +184,7 @@ const ActualizarAsistencia=async () => {
 
 const ActualizarHora =async (items) => {
   console.log (getDataAsistenciaUpdate(items))
-let actualizado= await Datos.updateItem("horastrabajo",getDataAsistenciaUpdate(items));
+let actualizado= await Datos.updateItem("horastrabajohf",getDataAsistenciaUpdate(items));
   if(actualizado){
     getHorasTrabajo()
     swal(textUpdate.title,textUpdate.msg,"success")
@@ -245,23 +245,23 @@ const GuardarCambios = (e) => {
 }
 
 
-const setDataEmpleado = (datahorastrabajo) => {
- 
-  setTelefono(datahorastrabajo.telefono);
-  setEstado(datahorastrabajo.estado);
-  setCorreo(datahorastrabajo.correo);
-  setAccion("update");
+const setDataHorastrabajo = (item) => {
+  setItemSelected(item)
+  setIdproyecto(item.idproyecto);
+  setIdtipotrabajo(item.idtipotrabajo)
+  setCodigoempleado(item.idempleado)
+
 }
 
 const AbrirActualizar = (datahorastrabajo) => {
-  setTitulo("Update Employee")
-  setDataEmpleado(datahorastrabajo)
+  setTitulo("Update Assistance")
+  setDataHorastrabajo(datahorastrabajo)
   setAccion("update")
   const modal=new bootstrap.Modal(document.getElementById("exampleModal"));
  modal.show();
 }
 const AbrirNuevo = () => {
-  setTitulo("Insert Assistance")
+  setTitulo("Add New Assistance")
   Limpiar()
   setAccion("new")
  const modal=new bootstrap.Modal(document.getElementById("exampleModal"));
@@ -382,7 +382,7 @@ const AbrirNuevo = () => {
             </BodyTable>
           </TableContainer>
           :
-          <Loader/>}
+          <ErrorPage/>}
 
         </div>
 

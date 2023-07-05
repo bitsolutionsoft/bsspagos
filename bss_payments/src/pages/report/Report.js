@@ -12,6 +12,7 @@ import FiltarItems from '../../utils/FiltrarItems';
 import SortItem from '../../utils/SortItem';
 import ButtonSort from '../../components/Table/ButtonSort';
 import FiltarEmp from '../../utils/FilterEmp';
+import ErrorPage from '../home/ErrorPage';
 
 function Report() {
   const [buscar, setBuscar] = useState("")
@@ -42,6 +43,7 @@ function Report() {
 
   const CalcTotalPaymentCancel = (data) => {
     let total=0;
+    
       for(let i=0; i<data.length; i++){
   
         total=Number(total)+Number(data[i].subtotal)
@@ -54,7 +56,12 @@ function Report() {
 
   const Busqueda = (params) => {
     setBuscar(params)
-    FiltarEmp(params,setDatosInforme,datosInformeAux)    
+  
+    setDatosInforme(datosInformeAux.filter((item)=>{
+      return item.empleado.toLowerCase().includes(params.toLowerCase()) || item.proyecto.toLowerCase().includes(params.toLowerCase());
+  }).map((element)=>{return element})
+  );
+  CalcTotalPaymentCancel(datosInforme)
   }
 
   const AbrirNuevo = (params) => {
@@ -68,6 +75,7 @@ function Report() {
               <HeaderBar value={buscar} onChange={Busqueda} onClick={AbrirNuevo}  hiddenNew={true} />
     </div>   
         <div className='div-body'>
+
           <div className='div-header-table'>
        <label className='item-title'>Report </label>
        
@@ -79,53 +87,7 @@ function Report() {
 
 <div className="row mb-2">
 <div className="col-12"> 
-{/*
-               <div className="form-check form-check-inline">
-               <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Por Dia"  /*onClick={(e)=>verInforme("Dia")}/>
-                  <label className="form-check-label" htmlFor="exampleRadios1">Por Día</label>
-               </div>
-               <div className="form-check form-check-inline">
-                 <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Por semana" /* onClick={(e)=>verInforme("Semana")/ />
-                 <label className="form-check-label" htmlFor="exampleRadios2">Por semana</label>
-               </div>
-               <div className="form-check form-check-inline">
-                 <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="Por mes" /* onClick={(e)=>verInforme("Mes")//>
-                 <label className="form-check-label" htmlFor="exampleRadios3">Por mes</label> <br/>
-               </div> 
-               
-               </div>
-
-               <div className="col-12">
-           <div className="row d-flex">
-
-            <div className="form-outline mb-4 col-4">
-<div className='input-group'>
-          <span className="input-group-text">Fecha inicial</span>
-          <input type="date" className="form-control form-control-sm" /*value={fechainicio} onChange={(e)=>setfechainicio(moment(e.target.value).format("YYYY-MM-DD"))}/>
-          
-      </div>
-       
-  </div>
-
-  <div className="form-outline mb-4 col-4" >
-      <div className='input-group'>
-          <span className="input-group-text">Fecha final</span>
-          <input type="date"  id="exampleFormControlInput1"  className="form-control form-control-sm"/*  value={fechaFinal} onChange={(e)=>setfechaFinal(moment(e.target.value).format("YYYY-MM-DD"))} />
-          
-      </div>
-       
-  </div>
-
-<div className="col-auto">
-<button type="button" className="ml-1 me-2 btn btn-success"/* onClick={()=>verInforme("Rango")} >Buscar</button>
-</div> 
-</div>
-
-
- </div> 
- */}           
-
+{datosInforme.length > 0 ? 
 <TableContainer>
             <HeaderTable>
             
@@ -166,6 +128,9 @@ function Report() {
 
             
           </TableContainer>
+          :
+          <ErrorPage/>
+          }
 
             </div>
 </div>
