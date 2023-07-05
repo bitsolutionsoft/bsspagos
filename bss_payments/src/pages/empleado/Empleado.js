@@ -19,6 +19,7 @@ import InputState from '../../components/Inputs/InputState'
 import Estado from '../../components/Table/Estado'
 import Permisos from './Permisos'
 import { textDelete, textQuestion } from '../../utils/MsgText'
+import ErrorPage from '../home/ErrorPage'
 const md5=require("md5");
 const bootstrap=require('bootstrap');
 
@@ -54,7 +55,7 @@ getEmpleado();
   },[])
 
   const getEmpleado =async () => {
-    let data=await Datos.getDatos("empleado")
+    let data=await Datos.getDatos("empleados")
     if(data !== null){
       setEmpleado(data)
       setEmpleadoAux(data)
@@ -279,7 +280,7 @@ let pass=(item.nombre.slice(0,2)+"$"+item.idempleado+item.apellido.slice(-2)+Mat
             </BodyTable>
           </TableContainer>
           :
-          <Loader/>}
+          <ErrorPage/>}
 
         </div>
 

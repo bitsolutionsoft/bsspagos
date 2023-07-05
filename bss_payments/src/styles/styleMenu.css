@@ -67,6 +67,7 @@ outline: none;
     transition: all 0.5s ease;
      width: 220px;  
 }
+
 .close{
     left: -250px;
 }
@@ -114,13 +115,13 @@ outline: none;
 .menu ul{
     list-style: none;
     margin: 0;
-
+    
     padding: 0px 15px 0px 15px;    
 }
 
 .op-item{
     font-size: 1rem;
-    margin: 15px 0px;
+    margin: 8px 0px;
  position: relative;
     padding: 4px 8px;
     cursor:pointer;

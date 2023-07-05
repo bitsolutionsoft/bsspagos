@@ -1,27 +1,27 @@
 import swal from "sweetalert"
  export function MessageError(error, tabla){
-    const title="Aviso"
+    const title="Alert"
     switch(error){
         case 404:
-            swal(title,`No se encontro registro de ${tabla}`,"error")
+            swal(title,`Data not faound`,"error");
         break;
         case 403:
-            swal(title,`No se permite la consulta  de  ${tabla}`,"error")
+            swal(title,`Consult not allowed`,"error");
         break;
         case 500:
-            swal(title,`No se encuentra disponible en servidor`,"error")
+            swal(title,`Server not available`,"error");
         break;
         case 503:
-            swal(title,`No  se completo la accion, error interno, Revise`,"error")
+            swal(title,`Action not completed, internal error, Check`,"error");
         break;
         case 300:
-            swal(title,`Hubo un error en la seleccion del registro`,"error")
+            swal(title,`There was an error in record selection`,"error");
         break;
         case "Failed to fetch":
-            swal(title,`No se encuentra disponible el servidor, Revise y vuela a intentar`,"error")
+            swal(title,`Server is not available, check and try again.`,"error");
         break;
         default:
-            swal(title,`Algo salio mal en el servidor, Revise y vualva a intentar`,"error")
+            swal(title,`Server is not available, check and try again.`,"error");
         break;
                                                    
     }

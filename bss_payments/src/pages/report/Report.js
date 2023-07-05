@@ -42,10 +42,9 @@ function Report() {
 
   const CalcTotalPaymentCancel = (data) => {
     let total=0;
-    
       for(let i=0; i<data.length; i++){
-        console.log()
-        total=Number(total)+Number(data[i].total)
+  
+        total=Number(total)+Number(data[i].subtotal)
       
     }
     setTotalPayment(total)
@@ -129,12 +128,14 @@ function Report() {
 
 <TableContainer>
             <HeaderTable>
+            
             <th onClick={()=> SortItem(sort,"empleado",setDatosInforme,datosInforme,setSort)}><ButtonSort col="First Name Last Name" /></th>
-                    
+                     
               <th>Project</th> 
-              <th>Phase</th> 
+             <th>#Payment</th>   
               <th>Work Type</th> 
               <th>Hours worked</th> 
+              <th>Extra worked</th> 
               <th>full payment</th>
               
             </HeaderTable>
@@ -142,15 +143,19 @@ function Report() {
 
             {datosInforme.map((item,index)=>(
                 <tr key={index}>
+               
+
                   <td>{item.empleado}</td>
-                  <td>{item.proyecto}</td>
-                  <td>{item.fase}</td>
+                  <td>{item.proyecto}</td>   
+                  <td>{item.idpago}</td>
+                 
                   <td>{item.tipo}</td>
                   
                   
-                  <td>{ConvertirAHora(item.hora_total) }</td>
+                  <td>{item.cant_hora+" hrs" }</td>
+                  <td>{item.cant_extra+" hrs" }</td>
                   
-                  <td>{Moneda(item.total) }</td>
+                  <td>{Moneda(item.subtotal) }</td>
             
                   {/* <td><Estado estado={item.estado}/></td>*/}
                   

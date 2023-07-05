@@ -22,28 +22,28 @@ HorasTrabajo.View= async ()=>{
 
 
 HorasTrabajo.Create= async (horastrabajo)=>{
-    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto}${horastrabajo.idtipotrabajo}${horastrabajo.idempleado},"new");`);
+    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto},${horastrabajo.idtipotrabajo},${horastrabajo.idempleado},"new");`);
 }
 
 
 HorasTrabajo.Update= async (horastrabajo)=>{
-    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto}${horastrabajo.idtipotrabajo}${horastrabajo.idempleado},"updatef");`);
+    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto},${horastrabajo.idtipotrabajo},${horastrabajo.idempleado},"updatef");`);
 }
 HorasTrabajo.UpdateHT= async (horastrabajo)=>{
-    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto}${horastrabajo.idtipotrabajo}${horastrabajo.idempleado},"updateht");`);
+    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto},${horastrabajo.idtipotrabajo},${horastrabajo.idempleado},"updateht");`);
 }
 HorasTrabajo.UpdateHE= async (horastrabajo)=>{
-    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto}${horastrabajo.idtipotrabajo}${horastrabajo.idempleado},"updatehe");`);
+    return await query(`call ingreso_horastrabajo(${horastrabajo.idhorastrabajo}, "${horastrabajo.fecha}","${horastrabajo.hora_inicio}","${horastrabajo.hora_final}",${horastrabajo.hora_total},${horastrabajo.horas_extra},"${horastrabajo.estado}",${horastrabajo.idproyecto},${horastrabajo.idtipotrabajo},${horastrabajo.idempleado},"updatehe");`);
 }
 
 
 HorasTrabajo.Delete= async (id)=>{
-    return await query(`call ingreso_horastrabajo(${id}, "2020-02-02","2020-02-02","2020-02-02",${null},${null},"${null}",${null},${null},${null},"delete");`);
+    return await query(`call ingreso_horastrabajo(${id}, "2020-02-02","2020-02-02","2020-02-02",${null},${null},"${null}",${null},${null},${null},,${null},${null},${null},"delete");`);
 }
 
 
 HorasTrabajo.ViewOne= async (id)=>{
-    return await query(`call ingreso_horastrabajo(${id}, "2020-02-02","2020-02-02","2020-02-02",,${null},${null},"${null}",${null},${null},${null},"viewone");`);
+    return await query(`call ingreso_horastrabajo(${id}, "2020-02-02","2020-02-02","2020-02-02",,${null},${null},"${null}",${null},${null},${null},,${null},${null},${null},"viewone");`);
 }
 
 module.exports=HorasTrabajo;

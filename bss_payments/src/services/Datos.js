@@ -19,6 +19,21 @@ class Datos{
             return null
         }
     }
+    async insertNewPay(table, data){
+        try {
+            const result = await fetch(`${host+table}`,Headers.headerPostBody(data));
+            if(!result.ok){
+                MessageError(result.status,table) 
+                return null
+            }
+            let datos=await result.json()      
+            return  datos.res;
+        } catch (error) {
+            MessageError(error.message, ""+error.message)
+            return false
+        }
+
+    }
     async insertNew(table, data){
         try {
             const result = await fetch(`${host+table}`,Headers.headerPostBody(data));
@@ -33,6 +48,7 @@ class Datos{
         }
 
     }
+
     async updateItem(table, data){
         try {
             const result = await fetch(`${host+table}/update`,Headers.headerPostBody(data));

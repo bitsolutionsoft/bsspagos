@@ -1,35 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeaderBar from '../../components/Header/HeaderBar'
-import { useSelector } from 'react-redux'
-import welcome from '../../assets/img/logo.jpg'
+
+import imgError from '../../assets/img/nodata.jpg'
+import Loader from '../../components/Loader/Loader'
 
 function ErrorPage() {
 
-  const  [buscar,setBuscar]=useState("")
+  const [loading, setLoading] = useState(true)
+useEffect(()=>{
+  setTimeout(()=>{
+    console.log(loading)
+setLoading(false)
+  },3000)
+})
 
-  const Busqueda = (params) => {
-    setBuscar(params)
-    
-  }
-  const CrearNuevo = () => {
-   // alert("creando nuevo")
-  }
+
   return (
     <>
-    <div className='div-header'>
-              <HeaderBar value={buscar} onChange={Busqueda} onClick={CrearNuevo} hiddenSearch={true} hiddenNew={true} />
-    </div>
-        <div className='div-body'>
-       
+   
+      
+       {loading ? <Loader/>:  
+       <div className='div-body'>
               <div className='d-flex flex-column  justify-content-center align-items-center '>
-                 <h1>Welcome to Sei Group</h1> 
-                 
-                 <p>Framing Interior & Exterior </p> 
-                     <img src={welcome} alt="img" className='img-welcome'/>
+                 <h1>No Data!</h1> 
+                 {/**       <h2>please add data, clicking on the upper left button! </h2> */}
+           
+                     <img src={imgError} alt="img" className='img-error'/>
               </div>
             
             </div>
-               
+               }
        
     
        

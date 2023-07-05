@@ -71,7 +71,10 @@ const CerrarSesion = () => {
     if(item.nombre==="Report" && item.acceso===1 ){
       return    <li key={index}  onClick={()=>SetCenter(item.nombre)} className={center ===item.nombre ?"op-item op-active":"op-item"}><i className="bi bi-file-bar-graph-fill"></i><span>{item.nombre}</span></li>  
     }
-  
+
+    if(item.nombre==="Type of Payment" && item.acceso===1 ){
+      return    <li key={index}  onClick={()=>SetCenter(item.nombre)} className={center ===item.nombre ?"op-item op-active":"op-item"}><i className="bi bi-credit-card-2-back-fill"></i><span>{item.nombre}</span></li>  
+    }
     if(item.nombre==="My Account" && item.acceso===1 ){
       return    <li key={index}  onClick={()=>SetCenter(item.nombre)} className={center ===item.nombre ?"op-item op-active":"op-item"}><i className="bi bi-person-fill-gear"></i><span>{item.nombre}</span></li>  
     }

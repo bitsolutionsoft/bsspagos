@@ -64,6 +64,7 @@ function Router(app){
    app.post("/pagos/update",IsLogin, pagos.Update)
    app.post("/pagos/delete/:id", IsLogin,pagos.Delete)
    app.get("/pagos/viewone/:id", IsLogin,pagos.ViewOne)
+   app.get("/pagosfac/viewone/:id",pagos.Viewpdf)
    app.get("/pagos/view", IsLogin,pagos.View)
 
    app.post("/detallepago",IsLogin, detallepago.Create)

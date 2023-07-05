@@ -9,15 +9,15 @@ function InputState(props) {
         <div className="form-check form-check-inline">
   <input className="form-check-input" 
   type="radio" name="estado" id="inlineRadio3" 
-  value={props.value} checked={props.value === "Activo" ? true : false} 
-  onChange={() => props.onChange("Activo")} selected/>
-  <label className="form-check-label" htmlFor="inlineRadio3">Activo</label>
+  value={props.value} checked={props.value === "Active" ? true : false} 
+  onChange={() => props.onChange("Active")} selected/>
+  <label className="form-check-label" htmlFor="inlineRadio3">Active</label>
 </div>
 <div className="form-check form-check-inline">
   <input className="form-check-input" type="radio" name="estado" id="inlineRadio4" 
-  value={props.value} checked={props.value === "No Activo" ? true : false} 
-  onChange={() => props.onChange("No Activo")}/>
-  <label className="form-check-label" htmlFor="inlineRadio4">No activo</label>
+  value={props.value} checked={props.value === "Inactive" ? true : false} 
+  onChange={() => props.onChange("Inactive")}/>
+  <label className="form-check-label" htmlFor="inlineRadio4">Inactive</label>
   </div>
 </div>
   </div>

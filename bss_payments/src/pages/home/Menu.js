@@ -12,6 +12,8 @@ import { addGrantedToList } from '../../app/reducers/granted/grantedSlice';
 import User from '../login/User';
 import Myassistance from '../myassistance/Myassistance';
 import Report from '../report/Report';
+import TipoPago from '../tipopago/TipoPago';
+import WelcomePage from './WelcomePage';
 
 
 function Menu() {
@@ -68,10 +70,12 @@ const Center =//useCallback(
         return <Myassistance  />
     case "My Account":
         return <User  />   
-        case "Report":
-          return <Report  />        
+    case "Type of Payment":
+        return <TipoPago  />   
+    case "Report":
+        return <Report  />        
     default:
-        return <ErrorPage />
+        return <WelcomePage />
 }
 
 }

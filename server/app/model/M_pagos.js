@@ -18,6 +18,9 @@ Pago.View= async ()=>{
     return await query(`select *from view_pagos;`)
 }
 
+Pago.NumPago= async ()=>{
+    return await query(`select *from nofactura;`)
+}
 
 Pago.Create= async (pago)=>{
     return await query(`call ingreso_pagos(${pago.idpago}, ${pago.idempleado},${pago.idtipopago},${pago.cantidadhora},${pago.horasextra},${pago.subtotal},${pago.descuento},${pago.total},"new");`);
@@ -36,6 +39,12 @@ Pago.Delete= async (id)=>{
 
 Pago.ViewOne= async (id)=>{
     return await query(`call ingreso_pagos(${id}, ${null},${null},${null},${null},${null},${null},${null},"viewone");`);
+}
+Pago.ViewPago= async (id)=>{
+    return await query(`call getPago(${id});`);
+}
+Pago.ViewDetallePago= async (id)=>{
+    return await query(`call getDetallePago(${id});`);
 }
 
 module.exports=Pago;

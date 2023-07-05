@@ -7,63 +7,63 @@ import SortNumber from '../../utils/SortNumber';
 import { DataPago, DataProject, DataUsuario } from '../../context/Context';
 import { Image, PDFViewer } from '@react-pdf/renderer';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-
+import { textDelete, textInsert, textQuestion, textUpdate } from '../../utils/MsgText'
 import HeaderTable from '../../components/Table/HeaderTable';
 import BodyTable from '../../components/Table/BodyTable';
 import TableContainer from '../../components/Table/TableContainer';
 import Loader from '../../components/Loader/Loader';
-import { useDispatch } from 'react-redux';
-import { addGrantedToList } from '../../app/reducers/granted/grantedSlice';
-import ButtonsOptions from '../../components/Table/ButtonsOptions';
+import printJS from 'print-js'
 import Estado from '../../components/Table/Estado';
-import InputText from '../../components/Inputs/InputText';
-import InputState from '../../components/Inputs/InputState';
-import Empleado from '../empleado/Empleado';
+
 import Moneda from '../../utils/Moneda';
 import { ConvertirAHora } from '../../utils/ConvertirAHora';
 import { CalcTotalPagoDia } from '../../utils/CalcTotalPagoDia';
 import welcome from '../../assets/img/logo.jpg'
+import { host } from '../../services/host';
+import ErrorPage from '../home/ErrorPage';
 const bootstrap=require("bootstrap");
 
 
 function Historialpagos() {
 
-    const bootstrap =require("bootstrap")
+  
     const [sort, setSort]=useState("ASC");
     const moment=require("moment") 
-    const [empleado, setEmpleado]=useState([]);
-    const [cantidadhora, setCantidadhora] = useState("")
-const [horasextra, setHorasextra] = useState("")
-const [subtotal, setSubtotal] = useState("")
-const [descuento, setDescuento] = useState("")
-const [total, setTotal] = useState("")
-const [idhoratrabajo, setIdhoratrabajo] = useState("")
-const [precio, setPrecio] = useState("")
-const [accion, setAccion] = useState("new");
-
-    const {setViewHistorial, empSeleccionado}= useContext(DataPago)
+    const {setViewHistorial, empSeleccionado,getPagos}= useContext(DataPago)
     const [detallepagos, setDetallepagos] = useState([])
     const [pago, setPago]=useState([]);
     const [datosFact, setDatosFact] = useState([]);
-    const [pagoAux, setPagoAux]=useState([]);
+    const [detallepagoAux, setDetallePagoAux]=useState([]);
     const [totalPay, setTotalPay] = useState("")
     const [totalPay2, setTotalPay2] = useState("")
-    
+    const [nuevoPrecio, setNuevoPrecio] = useState("")
+    const [idtipopago, setIdtipopago] = useState("")
+    const [numpago, setNumpago] = useState("");
+    const [dataTipoPago, setDataTipoPago]=useState([]);
+    const [labelInfo, setLabelInfo] = useState("")
+    const [totalTime, setTotalTime] = useState("")
+    const [totalExtra, setTotalextra] = useState("")
+    const [progress, setProgress] = useState("");
+    const [task, setTask] = useState("")
+
     useEffect(()=>{
+      getTipoPago()
         getDetallePAgos();
     },[])
 
-    /*const getPago =async () => {
-      let data=await Datos.getDatos("pago")
-      if(data !== null){
-        setPago(AddSelectToItems(data))
-        setPagoAux(AddSelectToItems(data))
-        return
-      }
-      setPago([])
-        setPagoAux([])
-    }*/
+ 
+ const getTipoPago =async () => {
+    let data=await Datos.getDatos("tipopago")
+    console.log(data)
+    if(data !== null){
+      setDataTipoPago(data)
 
+      return
+    }
+    setDataTipoPago([])
+  
+  }
+ 
 const AddSelectToItems = (data) => {
   let newdatos = data.map((item)=>{
      item.select= false;
@@ -97,14 +97,24 @@ const SelectAllItemToPay = (e) => {
 
 const CalcTotalPayOut = () => {
   let total=0;
+  let Totaltime=0;
+  let TotalExtra=0;
+  let universo=0;
   for(let i = 0; i < detallepagos.length; i++){
     if(detallepagos[i].select){
-      console.log(CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio))
-    total = (Number(total) + Number(CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio)))
-    console.log(total)
+   //   console.log(CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio,detallepagos[i].horas_extra,detallepagos[i].precio_extra))
+    total = (Number(total) + Number(CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio,detallepagos[i].horas_extra,detallepagos[i].precio_extra)));
+    Totaltime=(Number(Totaltime)+Number(detallepagos[i].hora_total) );
+    TotalExtra=(Number(TotalExtra)+Number(detallepagos[i].horas_extra) );
+    universo=Number(universo)+1;
+    
+    //console.log(total)
     }
   }
-  setTotalPay(total)
+  setTotalTime(Totaltime);
+  setTotalextra(TotalExtra);
+  setTotalPay(total);
+  setTask(universo)
 }
 
 
@@ -114,52 +124,116 @@ const getDetallePAgos =async () => {
   let datos=await Datos.getDetalleByID("emppagosxd",empSeleccionado.idempleado)
   console.log(datos)
 if (datos !==null) {
-    
-    setDetallepagos(AddSelectToItems(datos))
+    setDetallePagoAux(datos);
+    setDetallepagos(AddSelectToItems(datos));
     return
 }
-setDetallepagos([])
+setDetallepagos([]);
+setDetallepagos([]);
 }
-const getDataPagos=(codigo,idhorastrabajo,precio,cantidadhora,horasextra,subtotal,descuento,total)=>{
-  let fecha=new Date();
+
+const getDataPagos=()=>{
+
   return {
-  idpago:codigo,
-  idhoratrabajo:idhorastrabajo,
-  precio:precio,
-  cantidadhora:cantidadhora,
-  horasextra:horasextra,
-  subtotal:subtotal,
-  descuento:descuento,
-  total:total
+  idpago:0,
+  idempleado:empSeleccionado.idempleado,
+  idtipopago:idtipopago,
+  cantidadhora:totalTime,
+  horasextra:totalExtra,
+  subtotal:totalPay,
+  descuento:0,
+  total:totalPay
    
   }
 }
 
-const IngresarNuevo = async (datos) => {
-  let ingresado=await Datos.insertNew("pagos",datos);
-  if(ingresado){
-    swal("Exito","Se ingreso correctamente","success")
-  }  
+
+
+
+
+
+const getDataDetallePagos=(numeropago,item)=>{
+
+  return {
+  iddetalle:0,
+  idpago:numeropago,
+  idhorastrabajo:item.idhorastrabajo,
+  cant_hora:item.hora_total,  
+  precio:item.precio,
+  cant_extra:item.horas_extra,
+  precio_extra:item.precio_extra,
+  subtotal:CaclSubtotalPay(item.hora_total,item.precio, item.horas_extra,item.precio_extra)
+  }
 }
+const CaclSubtotalPay = (hora,precio,extra,pextra) => {
+  return ((Number(hora)*Number(precio))+(Number(extra)*Number(pextra))).toFixed(2)
+}
+
+
+const IngresarNuevo = async () => {
+  let numpago=0;
+  let ingresado=await Datos.insertNewPay("pagos",getDataPagos());
+  if(ingresado !==null){
+    numpago=ingresado[0].numpago;
+  }  
+  return numpago;
+}
+
+const IngresarNuevoDetalle = async (numeropago,item) => {
+  console.log(item)
+  let ingresado=await Datos.insertNew("detallepago",getDataDetallePagos(numeropago,item));
+  if(ingresado ){
+    swal(textInsert.title,textInsert.msg,"success")
+  }  
+
+}
+
+const GetPorcentaje = (cantidad) => {
+  return Math.round((Number(cantidad)*100)/Number(task))
+}
+
 
 const SavePayments = async () => {
+  if(idtipopago!==""){
+    setLabelInfo("")
+  let numeroPago=await IngresarNuevo()
+  setNumpago(numeroPago);
+ 
   for (let i = 0; i < detallepagos.length; i++) {
-    if(detallepagos[i].select){
-     await IngresarNuevo(getDataPagos(0,detallepagos[i].idhorastrabajo,detallepagos[i].precio,detallepagos[i].hora_total,0,0,0,CalcTotalPagoDia(detallepagos[i].hora_total,detallepagos[i].precio)))
+    if(detallepagos[i].select){     
+     await IngresarNuevoDetalle(numeroPago,detallepagos[i])
+     let porce= GetPorcentaje((Number(i)+1))
+     console.log(porce)
+     setProgress(porce)
      setDatosFact(datosFact=>[...datosFact,detallepagos[i]])
     }}
+    return
+  }
+  setLabelInfo("Please select typeo of payment");
 }
 
+
+const OpenSelectPeymentsType = (e) => {
+  let modalPaymetType=new bootstrap.Modal(document.getElementById("modalPayment"));
+  modalPaymetType.show();
+  setLabelInfo("")
+}
+
+const Limpiar = () => {
+  setTotalPay("")
+  setIdtipopago("")
+  setProgress("")
+}
 
 const GuardarCambios =async () => {
 try {
   setDatosFact([])
  await SavePayments();
   await getDetallePAgos()
-  const modal=new bootstrap.Modal(document.getElementById("modalPdf"));
-  modal.show();
-setTotalPay2(totalPay)
-setTotalPay("")
+//const modal=new bootstrap.Modal(document.getElementById("modalPdf"));
+  //modal.show();
+//setTotalPay2(totalPay)
+//Limpiar()
 } catch (error) {
   console.log(error)
 }
@@ -168,8 +242,40 @@ setTotalPay("")
 }
 
 
+const CambiarPrecio = (item) => {
+   for(let i=0; i < detallepagos.length; i++){
+    if(Number(item.idhorastrabajo)===Number(detallepagos[i].idhorastrabajo)){
+      detallepagos[i].precio=nuevoPrecio
+    }
+  }
+  setDetallepagos(detallepagos=>[...detallepagos]);
+  CalcTotalPayOut();
+}
+const ResetPrecio = (item) => {
+  for(let i=0; i < detallepagos.length; i++){
+    if(Number(item.idhorastrabajo)===Number(detallepagos[i].idhorastrabajo)){
+      detallepagos[i].precio=getPrecioDefinido(item.idhorastrabajo)
+    }
+  }
+  setDetallepagos(detallepagos=>[...detallepagos]);
+}
+
+const getPrecioDefinido = (id) => {
+  let precio;
+  for (const i in detallepagoAux) {
+    if (Number(id)===Number(detallepagoAux[i].idhorastrabajo)) {
+    precio = detallepagoAux[i].precio;
+      
+    }
+  }
+  
+  return precio
+}
 
 
+
+
+/**estilo de la factura 
 const styles = StyleSheet.create({
    
   table: {
@@ -222,13 +328,28 @@ const styles = StyleSheet.create({
     marginRight: 'auto'
 }
       })   
+      */
+      const backToPago = () => {
+        getPagos();
+        setViewHistorial(false)
+      }
       
-      
+      const PrintBouncher = () => {
+        try {
+          if(numpago > 0){
+            printJS(`${host}pagosfac/viewone/${numpago}`);
+            Limpiar();
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+       
   return (
     <>
       <div className='div-header'>
       <div className='d-flex'>
-      <span className='iconback' onClick={()=>setViewHistorial(false)} > <i className="bi bi-arrow-left-square-fill  ms-3 btn-back"> Back</i></span>
+      <span className='iconback' onClick={()=>backToPago()} > <i className="bi bi-arrow-left-square-fill  ms-3 btn-back"> Back</i></span>
        </div>
     </div>
       
@@ -241,7 +362,7 @@ const styles = StyleSheet.create({
   <label className="label-total ms-2" htmlFor="flexCheckDefault"> {Moneda(totalPay)}</label>
 </div>
       
-            <button type="button" className="btn-pagar" onClick={(e)=>GuardarCambios(e)}>Pay</button>
+            <button type="button" className="btn-pagar" onClick={(e)=>OpenSelectPeymentsType(e)}>Pay</button>
           
     
        </div>
@@ -250,12 +371,12 @@ const styles = StyleSheet.create({
             <HeaderTable>
       
               <th onClick={()=> SortItem(sort,"direccion",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Address" /></th>          
-              <th onClick={()=> SortItem(sort,"fase",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Phase" /></th>    
+               
               <th onClick={()=> SortItem(sort,"tipo",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Work" /></th>    
               <th onClick={()=> SortNumber(sort,"fecha",setDetallepagos,detallepagos,setSort)}><ButtonSort col="Date" /></th>  
-              <th>H/Initial</th>            
-              <th>H/Final</th> 
+             
               <th>Total Time</th>
+              <th>Total extra</th>
               <th>Price/Hrs</th>
               <th>Total due</th>             
               <th> <div>
@@ -271,16 +392,16 @@ const styles = StyleSheet.create({
             <BodyTable>
               {detallepagos.map((item,index)=>(
                 <tr key={index}>
-                  <td>{item.direccion}</td>
-                  <td>{item.fase}</td>
+                  <td>{item.proyecto}</td>
+
                   <td>{item.tipo}</td>
                   <td>{moment( item.fecha).format("MM/DD/YYYY")}</td> 
-                  <td>{moment( item.hora_inicio).format("hh:mm")}</td> 
-                  <td>{moment( item.hora_final).format("hh:mm")}</td> 
+                 
                   
-                  <td>{ConvertirAHora(item.hora_total) }</td>
-                  <td>{item.precio}</td>
-                  <td>{Moneda(CalcTotalPagoDia(item.hora_total,item.precio))}</td>
+                  <td>{item.hora_total + " hrs" }</td>
+                  <td>{item.horas_extra + " hrs" }</td>
+                  <td>{item.precio_extra}</td>
+                  <td>{Moneda(CalcTotalPagoDia(item.hora_total,item.precio,item.horas_extra,item.precio_extra))}</td>
                  <td>
                  <div className="form-check">
   <input className="form-check-input" type="checkbox" value={item.select} checked={item.select ? true : false} id="flexCheckDefault" onChange={(e)=>SelectItemToPay(item.idhorastrabajo,item.select)}/>
@@ -299,11 +420,56 @@ const styles = StyleSheet.create({
             
           </TableContainer>
           :
-          <Loader/>}
+          <ErrorPage/>}
 
         </div>
-     
-<div className="modal fade" id="modalPdf" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        {/**modal select payment´s type */}
+             
+<div className="modal fade" id="modalPayment" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-scrollable">
+    <div className="modal-content">
+      <div className="modal-header">
+      
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+  
+<div className="mb-3">
+  <label htmlFor="exampleFormControlInput1" className="form-label">Select Type of Payment</label>
+  <select className="form-select" aria-label="Default select example" value={idtipopago} onChange={(e)=>setIdtipopago(e.target.value)} > 
+<option > Type of Payment List</option>
+{dataTipoPago.length >0 ? dataTipoPago.map ((item,index)=>(
+<option  value={item.idtipopago} key={index}>
+  {`"Type:" ${item.nombre}  "Detail:" ${item.detalle}` }
+</option>
+)):null }</select>
+</div> 
+<div className="mb-3">
+<h5  className="form-label text-danger">{labelInfo}</h5>
+</div>
+{progress > 0 ? 
+<div>
+<div className="mb-3">
+<label  className="form-label">Wait...</label>
+<div className="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div className="progress-bar" style={{width: `${progress}%`}}>{`${progress}%`}</div>
+</div>
+</div>
+<div className="mb-3 text-align-center justify-items-center">
+<button type="submit" className="btn btn-outline-primary"  data-bs-dismiss="modal" onClick={()=>PrintBouncher()}>Print Boucher</button>
+</div></div>
+: null}
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary">Cancel</button>
+        <button type="submit" className="btn btn-primary"  onClick={()=>GuardarCambios()}>Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+        {/**modal pdf */}
+{/**     
+<div className="modal fade" id="modalPdf" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div className="modal-dialog modal-dialog-scrollable">
     <div className="modal-content">
       <div className="modal-header">
@@ -345,7 +511,7 @@ const styles = StyleSheet.create({
                   
                   <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12,textAlign: 'center', }}>{ConvertirAHora(item.hora_total) }</Text>
               
-                  <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12,textAlign: 'center', }}>{Moneda(CalcTotalPagoDia(item.hora_total,item.precio))}</Text>
+                  <Text style={{ flex: 1, alignSelf: 'stretch', fontSize:12,textAlign: 'center', }}>{Moneda(CalcTotalPagoDia(item.hora_total,item.precio,item.horas_extra,item.precio_extra))}</Text>
         </View>
         ))
       
@@ -363,7 +529,7 @@ const styles = StyleSheet.create({
      
     </div>
   </div>
-</div>
+</div>*/} 
     </>
   )
 }
