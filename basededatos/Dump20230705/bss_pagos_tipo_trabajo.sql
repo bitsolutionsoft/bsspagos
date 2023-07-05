@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `empleado`
+-- Dumping data for table `tipo_trabajo`
 --
 
-LOCK TABLES `empleado` WRITE;
-/*!40000 ALTER TABLE `empleado` DISABLE KEYS */;
-INSERT INTO `empleado` VALUES (1,'Jose Fernando','Hernandez Gomez',123456789,'jsfer@gmail.com','Activo'),(2,'pedro','hernandez',565656,'fadsfd@gmail.com','Activo'),(3,'juan','gonzalez',432432432,'fdsfdsfd@gmail.com','Activo'),(4,'mario','lopez',343432432,'rewrewre@gmail.com','Activo'),(5,'Yovani','Gomez',324324324,'dfgdasgd@gmail.com','Activo'),(6,'Fatima','Gonzalez',23432434,'fsfdsfds@gmail.com','Activo');
-/*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
+LOCK TABLES `tipo_trabajo` WRITE;
+/*!40000 ALTER TABLE `tipo_trabajo` DISABLE KEYS */;
+INSERT INTO `tipo_trabajo` VALUES (1,'Costruccion','albañil',20.00,'Active'),(2,'camino','cementar',13.00,'Active'),(3,'casa','reconstruccion',20.00,'Active'),(4,'','pintor',21.00,'Active');
+/*!40000 ALTER TABLE `tipo_trabajo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-30 17:07:31
+-- Dump completed on 2023-07-05 15:21:13

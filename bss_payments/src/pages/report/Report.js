@@ -43,29 +43,34 @@ function Report() {
 
   const CalcTotalPaymentCancel = (data) => {
     let total=0;
-    
+    if(data.length >0){
       for(let i=0; i<data.length; i++){
   
         total=Number(total)+Number(data[i].subtotal)
       
-    }
-    setTotalPayment(total)
+    }}
+    setTotalPayment(total )
   }
 
 
 
-  const Busqueda = (params) => {
+  const Busqueda =  (params) => {
     setBuscar(params)
-  
-    setDatosInforme(datosInformeAux.filter((item)=>{
-      return item.empleado.toLowerCase().includes(params.toLowerCase()) || item.proyecto.toLowerCase().includes(params.toLowerCase());
-  }).map((element)=>{return element})
-  );
-  CalcTotalPaymentCancel(datosInforme)
+
+  let newDatos=getNewDatos(params);
+setDatosInforme(newDatos )
+  CalcTotalPaymentCancel(newDatos)
   }
 
   const AbrirNuevo = (params) => {
     
+  }
+  
+  const getNewDatos = (params) => {
+    let newDatos=datosInformeAux.filter((item)=>{
+      return item.empleado.toLowerCase().includes(params.toLowerCase()) || item.proyecto.toLowerCase().includes(params.toLowerCase());
+  }).map((element)=>{return element});
+  return newDatos
   }
   
   

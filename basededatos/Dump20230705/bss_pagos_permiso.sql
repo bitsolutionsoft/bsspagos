@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `fase_proyecto`
+-- Dumping data for table `permiso`
 --
 
-LOCK TABLES `fase_proyecto` WRITE;
-/*!40000 ALTER TABLE `fase_proyecto` DISABLE KEYS */;
-INSERT INTO `fase_proyecto` VALUES (1,1,'Estructura','Activo',1,1),(2,1,'remodelacion','Activo',4,4),(3,1,'remodelacion','Activo',4,1),(4,3,'remodelacion','Activo',3,4),(5,4,'Estructura','Activo',4,2),(6,4,'pintura','Activo',4,4),(7,4,'remodela','Activo',4,2),(8,4,'pintura','Activo',5,4),(9,4,'piso','Activo',5,2),(10,4,'casa','Activo',1,1),(11,4,'casa','Activo',1,2),(12,2,'juan','Activo',4,3),(13,2,'juan','Activo',2,2),(14,3,'casa','Activo',1,1),(15,3,'casa','Activo',1,2),(16,3,'Fachada','Activo',4,1),(17,3,'Fachada','Activo',4,3),(18,4,'ftftftf','Activo',6,4),(19,4,'ftftftf','Activo',6,2);
-/*!40000 ALTER TABLE `fase_proyecto` ENABLE KEYS */;
+LOCK TABLES `permiso` WRITE;
+/*!40000 ALTER TABLE `permiso` DISABLE KEYS */;
+INSERT INTO `permiso` VALUES (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,1),(5,1,5,1),(6,1,6,1),(7,1,7,1),(8,1,8,1),(9,1,9,1),(10,1,10,1),(11,1,11,1),(12,1,12,1),(13,4,1,0),(14,4,2,1),(15,4,3,0),(16,4,4,0),(17,4,5,0),(18,4,6,0),(19,4,7,0),(20,4,8,0),(21,4,9,0),(22,4,10,0),(23,4,11,0),(24,4,12,1),(25,5,1,0),(26,5,2,0),(27,5,3,0),(28,5,4,0),(29,5,5,0),(30,5,6,1),(31,5,7,0),(32,5,8,0),(33,5,9,0),(34,5,10,1),(35,5,11,0),(36,5,12,0),(37,6,1,0),(38,6,2,0),(39,6,3,0),(40,6,4,0),(41,6,5,1),(42,6,6,0),(43,6,7,0),(44,6,8,0),(45,6,9,1),(46,6,10,0),(47,6,11,0),(48,6,12,0),(49,2,1,0),(50,2,2,0),(51,2,3,0),(52,2,4,0),(53,2,5,0),(54,2,6,0),(55,2,7,0),(56,2,8,0),(57,2,9,0),(58,2,10,0),(59,2,11,0),(60,2,12,0);
+/*!40000 ALTER TABLE `permiso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-30 17:07:30
+-- Dump completed on 2023-07-05 15:21:11

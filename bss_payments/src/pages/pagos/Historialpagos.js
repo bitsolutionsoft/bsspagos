@@ -5,8 +5,6 @@ import SortItem from '../../utils/SortItem';
 import ButtonSort from '../../components/Table/ButtonSort';
 import SortNumber from '../../utils/SortNumber';
 import { DataPago, DataProject, DataUsuario } from '../../context/Context';
-import { Image, PDFViewer } from '@react-pdf/renderer';
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { textDelete, textInsert, textQuestion, textUpdate } from '../../utils/MsgText'
 import HeaderTable from '../../components/Table/HeaderTable';
 import BodyTable from '../../components/Table/BodyTable';

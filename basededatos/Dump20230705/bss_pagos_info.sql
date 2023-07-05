@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `detalle_pago`
+-- Dumping data for table `info`
 --
 
-LOCK TABLES `detalle_pago` WRITE;
-/*!40000 ALTER TABLE `detalle_pago` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_pago` ENABLE KEYS */;
+LOCK TABLES `info` WRITE;
+/*!40000 ALTER TABLE `info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -33,4 +33,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-30 17:07:32
+-- Dump completed on 2023-07-05 15:21:12

@@ -347,7 +347,7 @@ let pass=(item.nombre.slice(0,2)+"$"+item.idempleado+item.apellido.slice(-2)+Mat
       </div>
       <div className="modal-body">
         <div className='mb-3'>
-          <laber>Please, copy the username and password or share with the employee, once saved, it will no longer be visible.</laber>
+          <label>Please, copy the username and password or share with the employee, once saved, it will no longer be visible.</label>
         </div>
 
       <InputText label="Username" type="text" value={usuario} onChange={setUsuario} required />

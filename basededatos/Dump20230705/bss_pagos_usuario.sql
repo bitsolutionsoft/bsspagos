@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `proyecto`
+-- Dumping data for table `usuario`
 --
 
-LOCK TABLES `proyecto` WRITE;
-/*!40000 ALTER TABLE `proyecto` DISABLE KEYS */;
-INSERT INTO `proyecto` VALUES (1,'Puente no se que','San Francisco el alto','Activo'),(2,'Edificio medico','San Francisco el alto','Activo'),(3,'cada de pedro','3era calle zona 1 san francisco','Activo'),(4,'remodelacion','3ra calle zona 2','Activo');
-/*!40000 ALTER TABLE `proyecto` ENABLE KEYS */;
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,1,'usuario','f8032d5cae3de20fcec887f395ec9a6a'),(2,4,'mario','de2f15d014d40b93578d255e6221fd60'),(3,6,'fatima','b5d5f67b30809413156655abdda382a3');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-30 17:07:32
+-- Dump completed on 2023-07-05 15:21:13

@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `tipo_trabajo`
+-- Dumping data for table `modulo`
 --
 
-LOCK TABLES `tipo_trabajo` WRITE;
-/*!40000 ALTER TABLE `tipo_trabajo` DISABLE KEYS */;
-INSERT INTO `tipo_trabajo` VALUES (1,'Costruccion','albañil',20.00,'Activo'),(2,'camino','cementar',13.00,'Activo'),(3,'casa','reconstruccion',20.00,'Activo'),(4,'','pintor',21.00,'Activo');
-/*!40000 ALTER TABLE `tipo_trabajo` ENABLE KEYS */;
+LOCK TABLES `modulo` WRITE;
+/*!40000 ALTER TABLE `modulo` DISABLE KEYS */;
+INSERT INTO `modulo` VALUES (1,'Employee'),(2,'Assistance'),(3,'Add User'),(4,'Add Permission'),(5,'Projects'),(6,'Projects phase'),(7,'My Assistance'),(8,'Payments'),(9,'Type of Worker'),(10,'Report'),(11,'Type of Payment'),(12,'My Account');
+/*!40000 ALTER TABLE `modulo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-30 17:07:31
+-- Dump completed on 2023-07-05 15:21:13

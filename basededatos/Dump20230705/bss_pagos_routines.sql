@@ -16,60 +16,57 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Temporary view structure for view `view_modulo`
+-- Temporary view structure for view `view_horastrabajo`
 --
 
-DROP TABLE IF EXISTS `view_modulo`;
-/*!50001 DROP VIEW IF EXISTS `view_modulo`*/;
+DROP TABLE IF EXISTS `view_horastrabajo`;
+/*!50001 DROP VIEW IF EXISTS `view_horastrabajo`*/;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `view_modulo` AS SELECT 
- 1 AS `idmodulo`,
- 1 AS `nombre`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary view structure for view `view_detallepagos`
---
-
-DROP TABLE IF EXISTS `view_detallepagos`;
-/*!50001 DROP VIEW IF EXISTS `view_detallepagos`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `view_detallepagos` AS SELECT 
- 1 AS `iddetalle`,
- 1 AS `idpago`,
- 1 AS `idhorastrabajo`,
- 1 AS `cant_hora`,
- 1 AS `precio`,
- 1 AS `cant_extra`,
- 1 AS `precio_extra`,
- 1 AS `subtotal`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary view structure for view `pagos_emp`
---
-
-DROP TABLE IF EXISTS `pagos_emp`;
-/*!50001 DROP VIEW IF EXISTS `pagos_emp`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `pagos_emp` AS SELECT 
+/*!50001 CREATE VIEW `view_horastrabajo` AS SELECT 
  1 AS `idhorastrabajo`,
  1 AS `fecha`,
  1 AS `hora_inicio`,
  1 AS `hora_final`,
  1 AS `hora_total`,
+ 1 AS `horas_extra`,
  1 AS `estado`,
  1 AS `tipo`,
  1 AS `precio`,
  1 AS `idempleado`,
  1 AS `idtipotrabajo`,
- 1 AS `empleado`,
- 1 AS `telefono`,
+ 1 AS `idproyecto`,
  1 AS `proyecto`,
- 1 AS `direccion`*/;
+ 1 AS `direccion`,
+ 1 AS `empleado`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `view_tipotrabajo`
+--
+
+DROP TABLE IF EXISTS `view_tipotrabajo`;
+/*!50001 DROP VIEW IF EXISTS `view_tipotrabajo`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_tipotrabajo` AS SELECT 
+ 1 AS `idtrabajo`,
+ 1 AS `nombre`,
+ 1 AS `tipo`,
+ 1 AS `precio`,
+ 1 AS `estado`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `nofactura`
+--
+
+DROP TABLE IF EXISTS `nofactura`;
+/*!50001 DROP VIEW IF EXISTS `nofactura`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `nofactura` AS SELECT 
+ 1 AS `numpago`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -115,6 +112,50 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `pagos_emp`
+--
+
+DROP TABLE IF EXISTS `pagos_emp`;
+/*!50001 DROP VIEW IF EXISTS `pagos_emp`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `pagos_emp` AS SELECT 
+ 1 AS `idhorastrabajo`,
+ 1 AS `fecha`,
+ 1 AS `hora_inicio`,
+ 1 AS `hora_final`,
+ 1 AS `hora_total`,
+ 1 AS `estado`,
+ 1 AS `tipo`,
+ 1 AS `precio`,
+ 1 AS `idempleado`,
+ 1 AS `idtipotrabajo`,
+ 1 AS `empleado`,
+ 1 AS `telefono`,
+ 1 AS `proyecto`,
+ 1 AS `direccion`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `view_detallepagos`
+--
+
+DROP TABLE IF EXISTS `view_detallepagos`;
+/*!50001 DROP VIEW IF EXISTS `view_detallepagos`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_detallepagos` AS SELECT 
+ 1 AS `iddetalle`,
+ 1 AS `idpago`,
+ 1 AS `idhorastrabajo`,
+ 1 AS `cant_hora`,
+ 1 AS `precio`,
+ 1 AS `cant_extra`,
+ 1 AS `precio_extra`,
+ 1 AS `subtotal`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary view structure for view `view_tipopago`
 --
 
@@ -130,33 +171,16 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `view_ususario`
+-- Temporary view structure for view `view_modulo`
 --
 
-DROP TABLE IF EXISTS `view_ususario`;
-/*!50001 DROP VIEW IF EXISTS `view_ususario`*/;
+DROP TABLE IF EXISTS `view_modulo`;
+/*!50001 DROP VIEW IF EXISTS `view_modulo`*/;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `view_ususario` AS SELECT 
- 1 AS `idusuario`,
- 1 AS `idempleado`,
- 1 AS `usuario`,
- 1 AS `pass`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary view structure for view `view_proyecto`
---
-
-DROP TABLE IF EXISTS `view_proyecto`;
-/*!50001 DROP VIEW IF EXISTS `view_proyecto`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `view_proyecto` AS SELECT 
- 1 AS `idproyecto`,
- 1 AS `nombre`,
- 1 AS `direccion`,
- 1 AS `estado`*/;
+/*!50001 CREATE VIEW `view_modulo` AS SELECT 
+ 1 AS `idmodulo`,
+ 1 AS `nombre`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -170,71 +194,16 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50001 CREATE VIEW `pago_emp` AS SELECT 
  1 AS `idhorastrabajo`,
  1 AS `hora_total`,
+ 1 AS `horas_extra`,
  1 AS `estado`,
  1 AS `tipo`,
  1 AS `total`,
+ 1 AS `totalextra`,
  1 AS `idempleado`,
  1 AS `idtipotrabajo`,
  1 AS `empleado`,
  1 AS `proyecto`,
  1 AS `direccion`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary view structure for view `view_tipotrabajo`
---
-
-DROP TABLE IF EXISTS `view_tipotrabajo`;
-/*!50001 DROP VIEW IF EXISTS `view_tipotrabajo`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `view_tipotrabajo` AS SELECT 
- 1 AS `idtrabajo`,
- 1 AS `nombre`,
- 1 AS `tipo`,
- 1 AS `precio`,
- 1 AS `estado`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary view structure for view `view_empleado`
---
-
-DROP TABLE IF EXISTS `view_empleado`;
-/*!50001 DROP VIEW IF EXISTS `view_empleado`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `view_empleado` AS SELECT 
- 1 AS `idempleado`,
- 1 AS `nombre`,
- 1 AS `apellido`,
- 1 AS `telefono`,
- 1 AS `correo`,
- 1 AS `estado`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary view structure for view `view_horastrabajo`
---
-
-DROP TABLE IF EXISTS `view_horastrabajo`;
-/*!50001 DROP VIEW IF EXISTS `view_horastrabajo`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `view_horastrabajo` AS SELECT 
- 1 AS `idhorastrabajo`,
- 1 AS `fecha`,
- 1 AS `hora_inicio`,
- 1 AS `hora_final`,
- 1 AS `hora_total`,
- 1 AS `estado`,
- 1 AS `tipo`,
- 1 AS `precio`,
- 1 AS `idempleado`,
- 1 AS `idtipotrabajo`,
- 1 AS `proyecto`,
- 1 AS `direccion`,
- 1 AS `empleado`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -258,6 +227,38 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `view_empleado`
+--
+
+DROP TABLE IF EXISTS `view_empleado`;
+/*!50001 DROP VIEW IF EXISTS `view_empleado`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_empleado` AS SELECT 
+ 1 AS `idempleado`,
+ 1 AS `nombre`,
+ 1 AS `apellido`,
+ 1 AS `telefono`,
+ 1 AS `correo`,
+ 1 AS `estado`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `view_proyecto`
+--
+
+DROP TABLE IF EXISTS `view_proyecto`;
+/*!50001 DROP VIEW IF EXISTS `view_proyecto`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_proyecto` AS SELECT 
+ 1 AS `idproyecto`,
+ 1 AS `nombre`,
+ 1 AS `direccion`,
+ 1 AS `estado`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary view structure for view `pagocancel_emp`
 --
 
@@ -266,23 +267,41 @@ DROP TABLE IF EXISTS `pagocancel_emp`;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `pagocancel_emp` AS SELECT 
+ 1 AS `iddetalle`,
+ 1 AS `idpago`,
  1 AS `idhorastrabajo`,
- 1 AS `hora_total`,
- 1 AS `estado`,
- 1 AS `tipo`,
+ 1 AS `cant_hora`,
+ 1 AS `precio`,
+ 1 AS `cant_extra`,
+ 1 AS `precio_extra`,
+ 1 AS `subtotal`,
+ 1 AS `fecha`,
  1 AS `total`,
- 1 AS `idempleado`,
- 1 AS `idtipotrabajo`,
- 1 AS `empleado`,
  1 AS `proyecto`,
- 1 AS `direccion`*/;
+ 1 AS `tipo`,
+ 1 AS `empleado`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Final view structure for view `view_modulo`
+-- Temporary view structure for view `view_ususario`
 --
 
-/*!50001 DROP VIEW IF EXISTS `view_modulo`*/;
+DROP TABLE IF EXISTS `view_ususario`;
+/*!50001 DROP VIEW IF EXISTS `view_ususario`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_ususario` AS SELECT 
+ 1 AS `idusuario`,
+ 1 AS `idempleado`,
+ 1 AS `usuario`,
+ 1 AS `pass`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `view_horastrabajo`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_horastrabajo`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -291,16 +310,16 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_modulo` AS select `modulo`.`idmodulo` AS `idmodulo`,`modulo`.`nombre` AS `nombre` from `modulo` */;
+/*!50001 VIEW `view_horastrabajo` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,`ht`.`fecha` AS `fecha`,`ht`.`hora_inicio` AS `hora_inicio`,`ht`.`hora_final` AS `hora_final`,`ht`.`hora_total` AS `hora_total`,`ht`.`horas_extra` AS `horas_extra`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,`tt`.`precio` AS `precio`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,`ht`.`idproyecto` AS `idproyecto`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion`,concat(`e`.`nombre`,' ',`e`.`apellido`) AS `empleado` from (((`horas_trabajo` `ht` join `tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending') */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `view_detallepagos`
+-- Final view structure for view `view_tipotrabajo`
 --
 
-/*!50001 DROP VIEW IF EXISTS `view_detallepagos`*/;
+/*!50001 DROP VIEW IF EXISTS `view_tipotrabajo`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -309,16 +328,16 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_detallepagos` AS select `detalle_pago`.`iddetalle` AS `iddetalle`,`detalle_pago`.`idpago` AS `idpago`,`detalle_pago`.`idhorastrabajo` AS `idhorastrabajo`,`detalle_pago`.`cant_hora` AS `cant_hora`,`detalle_pago`.`precio` AS `precio`,`detalle_pago`.`cant_extra` AS `cant_extra`,`detalle_pago`.`precio_extra` AS `precio_extra`,`detalle_pago`.`subtotal` AS `subtotal` from `detalle_pago` */;
+/*!50001 VIEW `view_tipotrabajo` AS select `tipo_trabajo`.`idtrabajo` AS `idtrabajo`,`tipo_trabajo`.`nombre` AS `nombre`,`tipo_trabajo`.`tipo` AS `tipo`,`tipo_trabajo`.`precio` AS `precio`,`tipo_trabajo`.`estado` AS `estado` from `tipo_trabajo` where (`tipo_trabajo`.`estado` = 'Active') */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `pagos_emp`
+-- Final view structure for view `nofactura`
 --
 
-/*!50001 DROP VIEW IF EXISTS `pagos_emp`*/;
+/*!50001 DROP VIEW IF EXISTS `nofactura`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -327,7 +346,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `pagos_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,`ht`.`fecha` AS `fecha`,`ht`.`hora_inicio` AS `hora_inicio`,`ht`.`hora_final` AS `hora_final`,`ht`.`hora_total` AS `hora_total`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,`tt`.`precio` AS `precio`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`e`.`telefono` AS `telefono`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from (((`horas_trabajo` `ht` join `tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending') */;
+/*!50001 VIEW `nofactura` AS select max(`pagos`.`idpago`) AS `numpago` from `pagos` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -369,6 +388,42 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `pagos_emp`
+--
+
+/*!50001 DROP VIEW IF EXISTS `pagos_emp`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `pagos_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,`ht`.`fecha` AS `fecha`,`ht`.`hora_inicio` AS `hora_inicio`,`ht`.`hora_final` AS `hora_final`,`ht`.`hora_total` AS `hora_total`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,`tt`.`precio` AS `precio`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`e`.`telefono` AS `telefono`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from (((`horas_trabajo` `ht` join `tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending') */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_detallepagos`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_detallepagos`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_detallepagos` AS select `detalle_pago`.`iddetalle` AS `iddetalle`,`detalle_pago`.`idpago` AS `idpago`,`detalle_pago`.`idhorastrabajo` AS `idhorastrabajo`,`detalle_pago`.`cant_hora` AS `cant_hora`,`detalle_pago`.`precio` AS `precio`,`detalle_pago`.`cant_extra` AS `cant_extra`,`detalle_pago`.`precio_extra` AS `precio_extra`,`detalle_pago`.`subtotal` AS `subtotal` from `detalle_pago` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `view_tipopago`
 --
 
@@ -381,16 +436,16 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_tipopago` AS select `tipopago`.`idtipopago` AS `idtipopago`,`tipopago`.`nombre` AS `nombre`,`tipopago`.`detalle` AS `detalle`,`tipopago`.`estado` AS `estado` from `tipopago` where (`tipopago`.`estado` = 'Inactive') */;
+/*!50001 VIEW `view_tipopago` AS select `tipopago`.`idtipopago` AS `idtipopago`,`tipopago`.`nombre` AS `nombre`,`tipopago`.`detalle` AS `detalle`,`tipopago`.`estado` AS `estado` from `tipopago` where (`tipopago`.`estado` = 'Active') */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `view_ususario`
+-- Final view structure for view `view_modulo`
 --
 
-/*!50001 DROP VIEW IF EXISTS `view_ususario`*/;
+/*!50001 DROP VIEW IF EXISTS `view_modulo`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -399,25 +454,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_ususario` AS select `usuario`.`idusuario` AS `idusuario`,`usuario`.`idempleado` AS `idempleado`,`usuario`.`usuario` AS `usuario`,`usuario`.`pass` AS `pass` from `usuario` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `view_proyecto`
---
-
-/*!50001 DROP VIEW IF EXISTS `view_proyecto`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_proyecto` AS select `proyecto`.`idproyecto` AS `idproyecto`,`proyecto`.`nombre` AS `nombre`,`proyecto`.`direccion` AS `direccion`,`proyecto`.`estado` AS `estado` from `proyecto` where (`proyecto`.`estado` = 'Activo') */;
+/*!50001 VIEW `view_modulo` AS select `modulo`.`idmodulo` AS `idmodulo`,`modulo`.`nombre` AS `nombre` from `modulo` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -435,61 +472,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `pago_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,sum(`ht`.`hora_total`) AS `hora_total`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,sum((`ht`.`hora_total` * (`tt`.`precio` / 60))) AS `total`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from (((`horas_trabajo` `ht` join `tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending') group by `e`.`idempleado` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `view_tipotrabajo`
---
-
-/*!50001 DROP VIEW IF EXISTS `view_tipotrabajo`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_tipotrabajo` AS select `tipo_trabajo`.`idtrabajo` AS `idtrabajo`,`tipo_trabajo`.`nombre` AS `nombre`,`tipo_trabajo`.`tipo` AS `tipo`,`tipo_trabajo`.`precio` AS `precio`,`tipo_trabajo`.`estado` AS `estado` from `tipo_trabajo` where (`tipo_trabajo`.`estado` = 'Activo') */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `view_empleado`
---
-
-/*!50001 DROP VIEW IF EXISTS `view_empleado`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_empleado` AS select `empleado`.`idempleado` AS `idempleado`,`empleado`.`nombre` AS `nombre`,`empleado`.`apellido` AS `apellido`,`empleado`.`telefono` AS `telefono`,`empleado`.`correo` AS `correo`,`empleado`.`estado` AS `estado` from `empleado` where (`empleado`.`estado` = 'Activo') */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `view_horastrabajo`
---
-
-/*!50001 DROP VIEW IF EXISTS `view_horastrabajo`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_horastrabajo` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,`ht`.`fecha` AS `fecha`,`ht`.`hora_inicio` AS `hora_inicio`,`ht`.`hora_final` AS `hora_final`,`ht`.`hora_total` AS `hora_total`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,`tt`.`precio` AS `precio`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion`,concat(`e`.`nombre`,' ',`e`.`apellido`) AS `empleado` from (((`horas_trabajo` `ht` join `tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending') */;
+/*!50001 VIEW `pago_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,sum(`ht`.`hora_total`) AS `hora_total`,sum(`ht`.`horas_extra`) AS `horas_extra`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,sum((`ht`.`hora_total` * `tt`.`precio`)) AS `total`,sum((`ht`.`horas_extra` * `tt`.`precio`)) AS `totalextra`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from (((`horas_trabajo` `ht` join `tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending') group by `e`.`idempleado` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -513,6 +496,42 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `view_empleado`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_empleado`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_empleado` AS select `empleado`.`idempleado` AS `idempleado`,`empleado`.`nombre` AS `nombre`,`empleado`.`apellido` AS `apellido`,`empleado`.`telefono` AS `telefono`,`empleado`.`correo` AS `correo`,`empleado`.`estado` AS `estado` from `empleado` where (`empleado`.`estado` = 'Active') */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_proyecto`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_proyecto`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_proyecto` AS select `proyecto`.`idproyecto` AS `idproyecto`,`proyecto`.`nombre` AS `nombre`,`proyecto`.`direccion` AS `direccion`,`proyecto`.`estado` AS `estado` from `proyecto` where (`proyecto`.`estado` = 'Active') */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `pagocancel_emp`
 --
 
@@ -525,7 +544,25 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `pagocancel_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,sum(`ht`.`hora_total`) AS `hora_total`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,sum((`ht`.`hora_total` * (`tt`.`precio` / 60))) AS `total`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from (((`horas_trabajo` `ht` join `tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Cancelled') group by `e`.`idempleado` */;
+/*!50001 VIEW `pagocancel_emp` AS select `d`.`iddetalle` AS `iddetalle`,`d`.`idpago` AS `idpago`,`d`.`idhorastrabajo` AS `idhorastrabajo`,`d`.`cant_hora` AS `cant_hora`,`d`.`precio` AS `precio`,`d`.`cant_extra` AS `cant_extra`,`d`.`precio_extra` AS `precio_extra`,`d`.`subtotal` AS `subtotal`,`p`.`fecha` AS `fecha`,`p`.`total` AS `total`,`pr`.`nombre` AS `proyecto`,`tt`.`tipo` AS `tipo`,concat(`e`.`nombre`,' ',`e`.`apellido`) AS `empleado` from (((((`detalle_pago` `d` join `pagos` `p` on((`d`.`idpago` = `p`.`idpago`))) join `empleado` `e` on((`p`.`idempleado` = `e`.`idempleado`))) join `horas_trabajo` `ht` on((`ht`.`idhorastrabajo` = `d`.`idhorastrabajo`))) join `tipo_trabajo` `tt` on((`tt`.`idtrabajo` = `ht`.`idtipotrabajo`))) join `proyecto` `pr` on((`ht`.`idproyecto` = `pr`.`idproyecto`))) order by `p`.`idpago` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_ususario`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_ususario`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_ususario` AS select `usuario`.`idusuario` AS `idusuario`,`usuario`.`idempleado` AS `idempleado`,`usuario`.`usuario` AS `usuario`,`usuario`.`pass` AS `pass` from `usuario` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -539,4 +576,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-30 17:07:33
+-- Dump completed on 2023-07-05 15:21:13

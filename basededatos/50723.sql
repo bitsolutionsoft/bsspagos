@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`horas_trabajo` (
     FOREIGN KEY (`idtipotrabajo`)
     REFERENCES `bss_pagos`.`tipo_trabajo` (`idtrabajo`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 57
+AUTO_INCREMENT = 79
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -102,12 +102,13 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `bss_pagos`.`tipopago`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bss_pagos`.`tipopago` (
-  `idtipopago` INT NOT NULL,
+  `idtipopago` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(60) NULL DEFAULT NULL,
   `detalle` VARCHAR(90) NULL DEFAULT NULL,
   `estado` VARCHAR(10) NULL DEFAULT NULL,
   PRIMARY KEY (`idtipopago`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -135,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`pagos` (
     FOREIGN KEY (`idtipopago`)
     REFERENCES `bss_pagos`.`tipopago` (`idtipopago`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 23
+AUTO_INCREMENT = 44
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -144,7 +145,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `bss_pagos`.`detalle_pago`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bss_pagos`.`detalle_pago` (
-  `iddetalle` INT NOT NULL,
+  `iddetalle` INT NOT NULL AUTO_INCREMENT,
   `idpago` INT NULL DEFAULT NULL,
   `idhorastrabajo` INT NULL DEFAULT NULL,
   `cant_hora` INT NULL DEFAULT NULL,
@@ -162,6 +163,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`detalle_pago` (
     FOREIGN KEY (`idpago`)
     REFERENCES `bss_pagos`.`pagos` (`idpago`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 19
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -234,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`permiso` (
     FOREIGN KEY (`idmodulo`)
     REFERENCES `bss_pagos`.`modulo` (`idmodulo`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 57
+AUTO_INCREMENT = 61
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -260,14 +262,19 @@ COLLATE = utf8mb4_0900_ai_ci;
 USE `bss_pagos` ;
 
 -- -----------------------------------------------------
+-- Placeholder table for view `bss_pagos`.`nofactura`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bss_pagos`.`nofactura` (`numpago` INT);
+
+-- -----------------------------------------------------
 -- Placeholder table for view `bss_pagos`.`pago_emp`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bss_pagos`.`pago_emp` (`idhorastrabajo` INT, `hora_total` INT, `estado` INT, `tipo` INT, `total` INT, `idempleado` INT, `idtipotrabajo` INT, `empleado` INT, `proyecto` INT, `direccion` INT);
+CREATE TABLE IF NOT EXISTS `bss_pagos`.`pago_emp` (`idhorastrabajo` INT, `hora_total` INT, `horas_extra` INT, `estado` INT, `tipo` INT, `total` INT, `totalextra` INT, `idempleado` INT, `idtipotrabajo` INT, `empleado` INT, `proyecto` INT, `direccion` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `bss_pagos`.`pagocancel_emp`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bss_pagos`.`pagocancel_emp` (`idhorastrabajo` INT, `hora_total` INT, `estado` INT, `tipo` INT, `total` INT, `idempleado` INT, `idtipotrabajo` INT, `empleado` INT, `proyecto` INT, `direccion` INT);
+CREATE TABLE IF NOT EXISTS `bss_pagos`.`pagocancel_emp` (`iddetalle` INT, `idpago` INT, `idhorastrabajo` INT, `cant_hora` INT, `precio` INT, `cant_extra` INT, `precio_extra` INT, `subtotal` INT, `fecha` INT, `total` INT, `proyecto` INT, `tipo` INT, `empleado` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `bss_pagos`.`pagos_emp`
@@ -292,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`view_fase` (`proyectonombre` INT, `direc
 -- -----------------------------------------------------
 -- Placeholder table for view `bss_pagos`.`view_horastrabajo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bss_pagos`.`view_horastrabajo` (`idhorastrabajo` INT, `fecha` INT, `hora_inicio` INT, `hora_final` INT, `hora_total` INT, `estado` INT, `tipo` INT, `precio` INT, `idempleado` INT, `idtipotrabajo` INT, `proyecto` INT, `direccion` INT, `empleado` INT);
+CREATE TABLE IF NOT EXISTS `bss_pagos`.`view_horastrabajo` (`idhorastrabajo` INT, `fecha` INT, `hora_inicio` INT, `hora_final` INT, `hora_total` INT, `horas_extra` INT, `estado` INT, `tipo` INT, `precio` INT, `idempleado` INT, `idtipotrabajo` INT, `idproyecto` INT, `proyecto` INT, `direccion` INT, `empleado` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `bss_pagos`.`view_info`
@@ -330,6 +337,39 @@ CREATE TABLE IF NOT EXISTS `bss_pagos`.`view_tipotrabajo` (`idtrabajo` INT, `nom
 CREATE TABLE IF NOT EXISTS `bss_pagos`.`view_ususario` (`idusuario` INT, `idempleado` INT, `usuario` INT, `pass` INT);
 
 -- -----------------------------------------------------
+-- procedure getDetallePago
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `bss_pagos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getDetallePago`(in codigo int)
+BEGIN
+select d.*, ht.hora_final, hora_inicio,p.nombre as proyecto,p.direccion, tt.tipo
+from detalle_pago d inner join horas_trabajo ht on d.idhorastrabajo=ht.idhorastrabajo
+inner join proyecto p on ht.idproyecto=p.idproyecto
+inner join tipo_trabajo tt on ht.idtipotrabajo=tt.idtrabajo 
+where d.idpago=codigo;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure getPago
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `bss_pagos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPago`(in codigo int)
+BEGIN
+select p.*, e.nombre, e.apellido, tp.nombre as nombrepago, tp.detalle
+from pagos p inner join empleado e on p.idempleado=e.idempleado
+inner join tipopago tp on p.idtipopago= tp.idtipopago
+where p.idpago=codigo;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
 -- procedure getpagosemp
 -- -----------------------------------------------------
 
@@ -339,52 +379,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getpagosemp`(
 in _idempleado int
 )
 begin
-select ht.*,  tt.tipo, tt.precio, 
+select ht.*, tt.precio as precio_extra, tt.tipo, tt.precio, 
 p.nombre as proyecto, p.direccion
 from horas_trabajo ht 
 inner join tipo_trabajo tt on ht.idtipotrabajo =tt.idtrabajo
 inner join proyecto p on ht.idproyecto = p.idproyecto
 inner join empleado e on ht.idempleado=e.idempleado
 where ht.estado='Pending' and e.idempleado=_idempleado;
-end$$
-
-DELIMITER ;
-
--- -----------------------------------------------------
--- procedure ingreo_tipopago
--- -----------------------------------------------------
-
-DELIMITER $$
-USE `bss_pagos`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ingreo_tipopago`(
-in _idtipopago int,
-in _nombre varchar(60),
-in _detalle varchar(60),
-in accion varchar(15)
-)
-begin
-declare  exit handler for sqlexception
-begin
-show errors limit 1;
-resignal;
-rollback;
-end;
-declare exit handler for sqlwarning
-begin
-show warnings limit  1;
-resignal;
-rollback;
-end;
-start transaction;
-case accion 
-when "new " then 
-insert into tipopago(nombre,detalle, estado) values(_nombre,_detalle,"Active");
-when "update" then
-update tipo_pago set nombre=_nombre, detalle=_detalle where idtipopago=_idtipopago;
-when "delete" then
-update tipo_pago set estado="Inactive" where idtipopago=_idtipopago;
-end case;
-commit;
 end$$
 
 DELIMITER ;
@@ -422,7 +423,7 @@ end;
 start transaction;
 case accion 
 when "new" then
-insert into detalle_factura(idpago, idhorastrabajo,cant_hora,precio,cant_extra,precio_extra,subtotal)
+insert into detalle_pago(idpago, idhorastrabajo,cant_hora,precio,cant_extra,precio_extra,subtotal)
 values(_idpago, _idhorastrabajo,_cant_hora,_precio,_cant_extra,_precio_extra,_subtotal);
 when "viewxd" then
 select * from detalle_pago where idpago=_idpago;
@@ -574,14 +575,14 @@ when 'new' then
 insert into horas_trabajo(fecha,hora_inicio,hora_total,horas_extra,estado, idproyecto, idtipotrabajo,idempleado)
 values(_fecha,_hora_inicio,_hora_total,_horas_extra,_estado,_idproyecto, _idtipotrabajo,_idempleado);
 when 'update' then
-update horas_trabajo set fecha=_fecha, hora_inicio=_hora_inicio, hora_final=_hora_final, hora_total=_hora_total,
-horas_extra=_idfase, estado=_estado,idproyecto=_idproyecto, idtipotrabajo=_idtipotrabajo,idempleado=_idempleado
+update horas_trabajo set  
+idproyecto=_idproyecto, idtipotrabajo=_idtipotrabajo, idempleado=_idempleado
 where idhorastrabajo =_idhorastrabajo;
 /*when 'updatef' then
 update horas_trabajo set  hora_final=_hora_final, hora_total=(select timestampdiff(minute,  hora_inicio, hora_final) )
 where idhorastrabajo =_idhorastrabajo;*/
 when 'updatef' then
-update horas_trabajo set  hora_final=_hora_final, hora_total=(select timestampdiff(minute,  hora_inicio, hora_final) )
+update horas_trabajo set  hora_final=_hora_final, hora_total=(select round( timestampdiff(minute,  hora_inicio, hora_final) /60))
 where idhorastrabajo =_idhorastrabajo;
 when 'updateht' then
 update horas_trabajo set  hora_total=_hora_total
@@ -592,7 +593,7 @@ where idhorastrabajo =_idhorastrabajo;
 when 'viewone' then
 select *from horas_trabajo where idhorastrabajo=_idhorastrabajo;
 when 'delete' then
-delete from horas_trabajo where idhorastrabajo=_idhorastrabajo;
+update horas_trabajo set estado="Removed" where idhorastrabajo=_idhorastrabajo;
 
 end case;
 commit;
@@ -785,6 +786,49 @@ end$$
 DELIMITER ;
 
 -- -----------------------------------------------------
+-- procedure ingreso_tipopago
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `bss_pagos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ingreso_tipopago`(
+in _idtipopago int,
+in _nombre varchar(60),
+in _detalle varchar(60),
+in _estado varchar(15),
+in accion varchar(15)
+)
+begin
+
+declare  exit handler for sqlexception
+begin
+show errors limit 1;
+resignal;
+rollback;
+end;
+declare exit handler for sqlwarning
+begin
+show warnings limit  1;
+resignal;
+rollback;
+end;
+
+start transaction;
+case accion 
+when "new" then 
+
+insert into tipopago( nombre,detalle, estado) values(_nombre,_detalle,"Active");
+when "update" then
+update tipopago set nombre=_nombre, detalle=_detalle, estado=_estado where idtipopago=_idtipopago;
+when "delete" then
+update tipopago set estado="Inactive" where idtipopago=_idtipopago;
+end case;
+commit;
+end$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
 -- procedure ingreso_tipotrabajo
 -- -----------------------------------------------------
 
@@ -880,18 +924,25 @@ end$$
 DELIMITER ;
 
 -- -----------------------------------------------------
+-- View `bss_pagos`.`nofactura`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bss_pagos`.`nofactura`;
+USE `bss_pagos`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`nofactura` AS select max(`bss_pagos`.`pagos`.`idpago`) AS `numpago` from `bss_pagos`.`pagos`;
+
+-- -----------------------------------------------------
 -- View `bss_pagos`.`pago_emp`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bss_pagos`.`pago_emp`;
 USE `bss_pagos`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`pago_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,sum(`ht`.`hora_total`) AS `hora_total`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,sum((`ht`.`hora_total` * (`tt`.`precio` / 60))) AS `total`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from (((`bss_pagos`.`horas_trabajo` `ht` join `bss_pagos`.`tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `bss_pagos`.`proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `bss_pagos`.`empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending') group by `e`.`idempleado`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`pago_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,sum(`ht`.`hora_total`) AS `hora_total`,sum(`ht`.`horas_extra`) AS `horas_extra`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,sum((`ht`.`hora_total` * `tt`.`precio`)) AS `total`,sum((`ht`.`horas_extra` * `tt`.`precio`)) AS `totalextra`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from (((`bss_pagos`.`horas_trabajo` `ht` join `bss_pagos`.`tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `bss_pagos`.`proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `bss_pagos`.`empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending') group by `e`.`idempleado`;
 
 -- -----------------------------------------------------
 -- View `bss_pagos`.`pagocancel_emp`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bss_pagos`.`pagocancel_emp`;
 USE `bss_pagos`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`pagocancel_emp` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,sum(`ht`.`hora_total`) AS `hora_total`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,sum((`ht`.`hora_total` * (`tt`.`precio` / 60))) AS `total`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,concat(`e`.`nombre`,'  ',`e`.`apellido`) AS `empleado`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion` from (((`bss_pagos`.`horas_trabajo` `ht` join `bss_pagos`.`tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `bss_pagos`.`proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `bss_pagos`.`empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Cancelled') group by `e`.`idempleado`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`pagocancel_emp` AS select `d`.`iddetalle` AS `iddetalle`,`d`.`idpago` AS `idpago`,`d`.`idhorastrabajo` AS `idhorastrabajo`,`d`.`cant_hora` AS `cant_hora`,`d`.`precio` AS `precio`,`d`.`cant_extra` AS `cant_extra`,`d`.`precio_extra` AS `precio_extra`,`d`.`subtotal` AS `subtotal`,`p`.`fecha` AS `fecha`,`p`.`total` AS `total`,`pr`.`nombre` AS `proyecto`,`tt`.`tipo` AS `tipo`,concat(`e`.`nombre`,' ',`e`.`apellido`) AS `empleado` from (((((`bss_pagos`.`detalle_pago` `d` join `bss_pagos`.`pagos` `p` on((`d`.`idpago` = `p`.`idpago`))) join `bss_pagos`.`empleado` `e` on((`p`.`idempleado` = `e`.`idempleado`))) join `bss_pagos`.`horas_trabajo` `ht` on((`ht`.`idhorastrabajo` = `d`.`idhorastrabajo`))) join `bss_pagos`.`tipo_trabajo` `tt` on((`tt`.`idtrabajo` = `ht`.`idtipotrabajo`))) join `bss_pagos`.`proyecto` `pr` on((`ht`.`idproyecto` = `pr`.`idproyecto`))) order by `p`.`idpago`;
 
 -- -----------------------------------------------------
 -- View `bss_pagos`.`pagos_emp`
@@ -912,7 +963,7 @@ CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY D
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bss_pagos`.`view_empleado`;
 USE `bss_pagos`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_empleado` AS select `bss_pagos`.`empleado`.`idempleado` AS `idempleado`,`bss_pagos`.`empleado`.`nombre` AS `nombre`,`bss_pagos`.`empleado`.`apellido` AS `apellido`,`bss_pagos`.`empleado`.`telefono` AS `telefono`,`bss_pagos`.`empleado`.`correo` AS `correo`,`bss_pagos`.`empleado`.`estado` AS `estado` from `bss_pagos`.`empleado` where (`bss_pagos`.`empleado`.`estado` = 'Activo');
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_empleado` AS select `bss_pagos`.`empleado`.`idempleado` AS `idempleado`,`bss_pagos`.`empleado`.`nombre` AS `nombre`,`bss_pagos`.`empleado`.`apellido` AS `apellido`,`bss_pagos`.`empleado`.`telefono` AS `telefono`,`bss_pagos`.`empleado`.`correo` AS `correo`,`bss_pagos`.`empleado`.`estado` AS `estado` from `bss_pagos`.`empleado` where (`bss_pagos`.`empleado`.`estado` = 'Active');
 
 -- -----------------------------------------------------
 -- View `bss_pagos`.`view_fase`
@@ -926,7 +977,7 @@ CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY D
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bss_pagos`.`view_horastrabajo`;
 USE `bss_pagos`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_horastrabajo` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,`ht`.`fecha` AS `fecha`,`ht`.`hora_inicio` AS `hora_inicio`,`ht`.`hora_final` AS `hora_final`,`ht`.`hora_total` AS `hora_total`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,`tt`.`precio` AS `precio`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion`,concat(`e`.`nombre`,' ',`e`.`apellido`) AS `empleado` from (((`bss_pagos`.`horas_trabajo` `ht` join `bss_pagos`.`tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `bss_pagos`.`proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `bss_pagos`.`empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending');
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_horastrabajo` AS select `ht`.`idhorastrabajo` AS `idhorastrabajo`,`ht`.`fecha` AS `fecha`,`ht`.`hora_inicio` AS `hora_inicio`,`ht`.`hora_final` AS `hora_final`,`ht`.`hora_total` AS `hora_total`,`ht`.`horas_extra` AS `horas_extra`,`ht`.`estado` AS `estado`,`tt`.`tipo` AS `tipo`,`tt`.`precio` AS `precio`,`ht`.`idempleado` AS `idempleado`,`ht`.`idtipotrabajo` AS `idtipotrabajo`,`ht`.`idproyecto` AS `idproyecto`,`p`.`nombre` AS `proyecto`,`p`.`direccion` AS `direccion`,concat(`e`.`nombre`,' ',`e`.`apellido`) AS `empleado` from (((`bss_pagos`.`horas_trabajo` `ht` join `bss_pagos`.`tipo_trabajo` `tt` on((`ht`.`idtipotrabajo` = `tt`.`idtrabajo`))) join `bss_pagos`.`proyecto` `p` on((`ht`.`idproyecto` = `p`.`idproyecto`))) join `bss_pagos`.`empleado` `e` on((`ht`.`idempleado` = `e`.`idempleado`))) where (`ht`.`estado` = 'Pending');
 
 -- -----------------------------------------------------
 -- View `bss_pagos`.`view_info`
@@ -954,21 +1005,21 @@ CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY D
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bss_pagos`.`view_proyecto`;
 USE `bss_pagos`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_proyecto` AS select `bss_pagos`.`proyecto`.`idproyecto` AS `idproyecto`,`bss_pagos`.`proyecto`.`nombre` AS `nombre`,`bss_pagos`.`proyecto`.`direccion` AS `direccion`,`bss_pagos`.`proyecto`.`estado` AS `estado` from `bss_pagos`.`proyecto` where (`bss_pagos`.`proyecto`.`estado` = 'Activo');
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_proyecto` AS select `bss_pagos`.`proyecto`.`idproyecto` AS `idproyecto`,`bss_pagos`.`proyecto`.`nombre` AS `nombre`,`bss_pagos`.`proyecto`.`direccion` AS `direccion`,`bss_pagos`.`proyecto`.`estado` AS `estado` from `bss_pagos`.`proyecto` where (`bss_pagos`.`proyecto`.`estado` = 'Active');
 
 -- -----------------------------------------------------
 -- View `bss_pagos`.`view_tipopago`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bss_pagos`.`view_tipopago`;
 USE `bss_pagos`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_tipopago` AS select `bss_pagos`.`tipopago`.`idtipopago` AS `idtipopago`,`bss_pagos`.`tipopago`.`nombre` AS `nombre`,`bss_pagos`.`tipopago`.`detalle` AS `detalle`,`bss_pagos`.`tipopago`.`estado` AS `estado` from `bss_pagos`.`tipopago` where (`bss_pagos`.`tipopago`.`estado` = 'Inactive');
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_tipopago` AS select `bss_pagos`.`tipopago`.`idtipopago` AS `idtipopago`,`bss_pagos`.`tipopago`.`nombre` AS `nombre`,`bss_pagos`.`tipopago`.`detalle` AS `detalle`,`bss_pagos`.`tipopago`.`estado` AS `estado` from `bss_pagos`.`tipopago` where (`bss_pagos`.`tipopago`.`estado` = 'Active');
 
 -- -----------------------------------------------------
 -- View `bss_pagos`.`view_tipotrabajo`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `bss_pagos`.`view_tipotrabajo`;
 USE `bss_pagos`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_tipotrabajo` AS select `bss_pagos`.`tipo_trabajo`.`idtrabajo` AS `idtrabajo`,`bss_pagos`.`tipo_trabajo`.`nombre` AS `nombre`,`bss_pagos`.`tipo_trabajo`.`tipo` AS `tipo`,`bss_pagos`.`tipo_trabajo`.`precio` AS `precio`,`bss_pagos`.`tipo_trabajo`.`estado` AS `estado` from `bss_pagos`.`tipo_trabajo` where (`bss_pagos`.`tipo_trabajo`.`estado` = 'Activo');
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bss_pagos`.`view_tipotrabajo` AS select `bss_pagos`.`tipo_trabajo`.`idtrabajo` AS `idtrabajo`,`bss_pagos`.`tipo_trabajo`.`nombre` AS `nombre`,`bss_pagos`.`tipo_trabajo`.`tipo` AS `tipo`,`bss_pagos`.`tipo_trabajo`.`precio` AS `precio`,`bss_pagos`.`tipo_trabajo`.`estado` AS `estado` from `bss_pagos`.`tipo_trabajo` where (`bss_pagos`.`tipo_trabajo`.`estado` = 'Active');
 
 -- -----------------------------------------------------
 -- View `bss_pagos`.`view_ususario`
