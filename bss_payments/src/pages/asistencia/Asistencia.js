@@ -340,10 +340,10 @@ const AbrirNuevo = () => {
               <th>Final Time</th>    
              
               <th>Total Time</th>
-                  <th></th>
+         
                      
               <th>Extra Time</th>
-              <th></th>    
+             
               <th>Total due</th>   
               <th>Paid</th>
 
@@ -357,7 +357,7 @@ const AbrirNuevo = () => {
                   <td>{item.empleado}</td>
                   <td>{item.proyecto}</td>
                   <td>{item.tipo}</td>
-                  <td>{`$ ${item.precio}`}</td>
+                  <td>{Moneda(item.precio)}</td>
                   <td>{moment(item.hora_inicio).format("MM/DD/YYYY")}</td>
                   
                   <td>{moment(item.hora_inicio).format("HH:mm:ss")}</td>
@@ -369,11 +369,11 @@ const AbrirNuevo = () => {
                     </div>
                     }
                     </td>     
-                  
-                  <td>{ item.hora_total + " hrs" } </td>  
-                  <ButtonAdd onClick={AddTime} item={item} />                       
-                  <td>{item.horas_extra + " hrs"}</td>
-                  <ButtonAdd onClick={AddTimeExtra} item={item} /> 
+                    <ButtonAdd onClick={AddTime} item={item} hora={item.hora_total}/>
+
+                                  
+               
+                  <ButtonAdd onClick={AddTimeExtra} item={item} hora={item.horas_extra}/> 
                   <td>{Moneda(CalcTotalPagoDia(item.hora_total,item.precio,item.horas_extra,item.precio))}</td>
                   <td><Estado estado={item.estado}/></td>
                   
@@ -439,7 +439,7 @@ const AbrirNuevo = () => {
 <option > Work List</option>
 {tipoTabajo.length >0 ? tipoTabajo.map ((item,index)=>(
 <option  value={item.idtrabajo} key={index}>
-  {`"Work:"   ${item.tipo} "price/h:"  ${item.precio} ` }
+{item.tipo}
 </option>
 )):null }</select>
 </div> 
