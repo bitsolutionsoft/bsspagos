@@ -333,7 +333,7 @@ const AbrirNuevo = () => {
             <th onClick={()=> SortItem(sort,"datahorastrabajo",setDatahorastrabajo,datahorastrabajo,setSort)}><ButtonSort col="Employee" /></th>
             <th onClick={()=> SortItem(sort,"proyecto",setDatahorastrabajo,datahorastrabajo,setSort)}><ButtonSort col="Project" /></th>
             <th onClick={()=> SortItem(sort,"tipo",setDatahorastrabajo,datahorastrabajo,setSort)}><ButtonSort col="Work" /></th>
-
+            <th>Price</th>
               <th onClick={()=> SortNumber(sort,"fecha",setDatahorastrabajo,datahorastrabajo,setSort)}><ButtonSort col="Date" /></th>
 
               <th>Initial Time</th>
@@ -357,7 +357,9 @@ const AbrirNuevo = () => {
                   <td>{item.empleado}</td>
                   <td>{item.proyecto}</td>
                   <td>{item.tipo}</td>
+                  <td>{`$ ${item.precio}`}</td>
                   <td>{moment(item.hora_inicio).format("MM/DD/YYYY")}</td>
+                  
                   <td>{moment(item.hora_inicio).format("HH:mm:ss")}</td>
                   <td>
                     {item.hora_final !== null ?  moment( item.hora_final).format("HH:mm:ss")

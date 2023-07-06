@@ -476,7 +476,7 @@ setDireccion(fase[index].direccion);
 <option > Work List</option>
 {tipoTabajo.length >0 ? tipoTabajo.map ((item,index)=>(
 <option  value={item.idtrabajo} key={index}>
-  {`"Work:"   ${item.tipo} "price/h:"  ${item.precio} ` }
+{item.tipo}
 </option>
 )):null }</select>
 </div> 
