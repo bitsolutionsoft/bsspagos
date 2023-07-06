@@ -388,9 +388,9 @@ setDireccion(fase[index].direccion);
               <th>Initial Time</th>
               <th>Final Time</th>
               <th>Total Time</th>
-              <th></th>
+          
               <th>Extra Time</th>
-              <th></th>    
+            
               <th>Total due</th>
               <th>Paid</th>
               <th>Actions</th>
@@ -414,9 +414,12 @@ setDireccion(fase[index].direccion);
                     }
                     </td>
                     <td>{ item.hora_total + " hrs" } </td>  
-                  <ButtonAdd onClick={AddTime} item={item} />                       
+                    {/** 
+                  <ButtonAdd onClick={AddTime} item={item} />      
+                         <ButtonAdd onClick={AddTimeExtra} item={item} />   
+*/}
                   <td>{item.horas_extra + " hrs"}</td>
-                  <ButtonAdd onClick={AddTimeExtra} item={item} /> 
+          
                   <td>{Moneda(CalcTotalPagoDia(item.hora_total,item.precio,item.horas_extra,item.precio))}</td>
                   <td><Estado estado={item.estado}/></td>
                   
