@@ -50,7 +50,9 @@ const CerrarSesion = () => {
     if(item.nombre==="Employee" && item.acceso===1 ){
       return <li  key={index} onClick={()=>SetCenter(item.nombre)} className={center ===item.nombre ?"op-item op-active":"op-item"}><i className="bi bi-person-lines-fill"></i><span>{item.nombre} </span></li>  
     }
-   
+    if(item.nombre==="Add User" && item.acceso===1 ){
+      return    <li key={index}  onClick={()=>SetCenter(item.nombre)} className={center ===item.nombre ?"op-item op-active":"op-item"}><i className="bi bi-person-fill-gear"></i><span>{item.nombre}</span></li>  
+    }
     if(item.nombre==="Payments" && item.acceso===1 ){
       return   <li key={index}  onClick={()=>SetCenter(item.nombre)} className={center ===item.nombre ?"op-item op-active":"op-item"}><i className="bi bi-credit-card-2-front-fill"></i><span>{item.nombre}</span></li> 
     }

@@ -18,10 +18,10 @@ import swal from "sweetalert"
             swal(title,`There was an error in record selection`,"error");
         break;
         case "Failed to fetch":
-            swal(title,`Server is not available, check and try again.`,"error");
+          //  swal(title,`Server is not available, check and try again.`,"error");
         break;
         default:
-            swal(title,`Server is not available, check and try again.`,"error");
+           // swal(title,`Server is not available, check and try again.`,"error");
         break;
                                                    
     }

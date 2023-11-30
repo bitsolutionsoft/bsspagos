@@ -100,7 +100,11 @@ class Datos{
             }
             let datos=await result.json()
            // console.log(datos.res)
-            return datos.res
+           if(datos.res.length > 0 ) {
+              return datos.res
+           }
+          return null
+
         } catch (error) {
             MessageError(error.message, ""+error.message)
             return null

@@ -15,6 +15,8 @@ import TipoPago from '../tipopago/TipoPago';
 import WelcomePage from './WelcomePage';
 import MyAsistencia from '../myassistance/Myassistance';
 
+import ListaEmpleado from '../user/ListaEmpleado';
+
 
 function Menu() {
 const dispatch=useDispatch();
@@ -49,7 +51,9 @@ const Center =//useCallback(
     case "Projects":    
        return <Proyecto />    
     case "Type of Worker":       
-       return <Tipotrabajo />      
+       return <Tipotrabajo />   
+    case "Add User":       
+       return <ListaEmpleado />      
     case "Assistance":      
         return <Asistencia />                         
     case "Payments":
