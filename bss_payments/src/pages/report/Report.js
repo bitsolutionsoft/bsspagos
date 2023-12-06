@@ -13,13 +13,18 @@ import SortItem from '../../utils/SortItem';
 import ButtonSort from '../../components/Table/ButtonSort';
 import FiltarEmp from '../../utils/FilterEmp';
 import ErrorPage from '../home/ErrorPage';
+import { DataPrint } from '../../context/Context';
+import ReportPdf from './ReportPdf';
 
 function Report() {
   const [buscar, setBuscar] = useState("")
   const [datosInforme, setDatosInforme] = useState([])
   const [datosInformeAux, setDatosInformeAux] = useState([])
   const [sort, setSort] = useState("ASC");
-  const [totalPayment, setTotalPayment] = useState("")
+  const [totalPayment, setTotalPayment] = useState("");
+  const [fechaInicio, setFechaInicio]=useState("");
+  const [fechaFinal, setFechaFinal]=useState("");
+ const [imprimir, setImprimir] = useState(false);
 
   useEffect(()=>{
     getInformePagos();
@@ -57,7 +62,7 @@ function Report() {
   const Busqueda =  (params) => {
     setBuscar(params)
 
-  let newDatos=getNewDatos(params);
+  let newDatos=AfterDate(BefeoreDate(getNewDatos(params),fechaFinal),fechaInicio);
 setDatosInforme(newDatos )
   CalcTotalPaymentCancel(newDatos)
   }
@@ -72,14 +77,88 @@ setDatosInforme(newDatos )
   }).map((element)=>{return element});
   return newDatos
   }
+  const AfterDate = (params, fecha_inicial) => {
+
+    if( fecha_inicial!==""){
+      let startDate=new Date(fecha_inicial);
+      let resultData=params.filter((item)=>{
+        let date=new Date(item.fecha);
+        return (date >= startDate )
+      }).map((element)=>{
+        return element
+      }
+      )
+      return resultData;
+    }
+    return params;
+  }
+  const BefeoreDate = (params,fecha_final) => {
+
+    if(fecha_final !==""  ){
+      let endDate=new Date(fecha_final);
+      let resultData=params.filter((item)=>{
+        let date=new Date(item.fecha);
+        return ( date <=endDate)
+      }).map((element)=>{
+        return element
+      }
+      )
+      return resultData;
+    }
+    return params;
+  }
   
+  const startDateSelected = async (params) => {
+    setFechaInicio(params)
   
+    let newData= await BefeoreDate( AfterDate(getNewDatos(buscar),params),fechaFinal)
+
+    setDatosInforme(newData)
+    CalcTotalPaymentCancel(newData)
+  }
+  
+  const endDateSelected = (params) => {
+    setFechaFinal(params)
+    console.log(fechaFinal)
+    let newData=BefeoreDate( AfterDate(getNewDatos(buscar),fechaInicio),params)
+    console.log(__dirname)
+    setDatosInforme(newData)
+    CalcTotalPaymentCancel(newData)
+  }
+  
+  const valueProvider = {
+    datosInforme,
+    fechaFinal,
+    fechaInicio,
+    totalPayment,
+    setImprimir
+   
+  }
   return (
-    <>
+   
+    <DataPrint.Provider value={valueProvider}>
+      { imprimir ? 
+      <ReportPdf/>
+      :
+
+        <>
        <div className='div-header'>
               <HeaderBar value={buscar} onChange={Busqueda} onClick={AbrirNuevo}  hiddenNew={true} />
     </div>   
         <div className='div-body'>
+        <div className='mb-3'>
+          <label>Order by Date</label>
+          <div className='row'>
+            <div className='col-md-6 col-sm-12'>
+              <label className='label-form-control' htmlFor='fechainicio'>Initial Date</label>
+             <input type='date' className='form-control' value={fechaInicio} onChange={(e)=>startDateSelected(e.target.value)}/>
+            </div>
+            <div className='col-md-6 col-sm-12'>
+              <label htmlFor='fechainicio'>Final  date</label>
+             <input type='date' className='form-control' value={fechaFinal} onChange={(e)=>endDateSelected(e.target.value)}/>
+            </div>
+          </div>
+        </div>
 
           <div className='div-header-table'>
        <label className='item-title'>Report </label>
@@ -88,6 +167,7 @@ setDatosInforme(newDatos )
 <label className='title-card-info'>Payments cancel: </label>
 <label className='desc-card-info'>{Moneda(totalPayment)}</label>
  </div>
+ <button type='button' className='btn btn-outline-secondary'  onClick={()=>setImprimir(true)}>View Pdf</button>
        </div>
 
 <div className="row mb-2">
@@ -100,6 +180,7 @@ setDatosInforme(newDatos )
                      
               <th>Project</th> 
              <th>#Payment</th>   
+             <th>Date</th>
               <th>Work Type</th> 
               <th>Hours worked</th> 
               <th>Extra worked</th> 
@@ -115,7 +196,7 @@ setDatosInforme(newDatos )
                   <td>{item.empleado}</td>
                   <td>{item.proyecto}</td>   
                   <td>{item.idpago}</td>
-                 
+                  <td>{moment(item.fecha).format("MM-DD-YYYY")}</td>
                   <td>{item.tipo}</td>
                   
                   
@@ -141,6 +222,9 @@ setDatosInforme(newDatos )
 </div>
     </div>
     </> 
+      }
+      
+       </DataPrint.Provider>
   )
 }
 
