@@ -56,6 +56,8 @@ const [tipoTabajo, setTipoTabajo] = useState([]);
 const [codigoempleado, setCodigoempleado] = useState("");
 const {idempleado, nombre, apellido}=useSelector(state =>state.user)
 const [itemSelected, setItemSelected] = useState([]);
+const [fechaTrabajo, setFechaTrabajo] = useState("");
+
 
   useEffect(()=>{
 getHorasTrabajo();
@@ -97,13 +99,13 @@ getTipoTrabajo();
   }
 
   const getDataAsistencia=(codigo)=>{
-    let fecha=new Date();
+   let fecha=new Date();
  
     return {
       idhorastrabajo:codigo,
-      fecha:moment(fecha).format("YYYY-MM-DD hh:mm:ss"),
-      hora_inicio:moment(fecha).format("YYYY-MM-DD HH:mm:ss") ,
-      hora_final:moment(fecha).format("YYYY-MM-DD HH:mm:ss")  ,
+      fecha:moment(fechaTrabajo).format("YYYY-MM-DD hh:mm:ss"),
+      hora_inicio:moment(fechaTrabajo).format("YYYY-MM-DD HH:mm:ss") ,
+      hora_final:moment(fechaTrabajo).format("YYYY-MM-DD HH:mm:ss")  ,
       hora_total:0,
       horas_extra:0,
       estado:estado,
@@ -114,13 +116,13 @@ getTipoTrabajo();
     }
   }
   const getDataAsistenciaUpdate=(item)=>{
-    let fecha=new Date();
+   // let fecha=new Date();
  
     return {
       idhorastrabajo:item.idhorastrabajo,
-      fecha:moment(fecha).format("YYYY-MM-DD hh:mm:ss"),
-      hora_inicio:moment(fecha).format("YYYY-MM-DD HH:mm:ss") ,
-      hora_final:moment(fecha).format("YYYY-MM-DD HH:mm:ss")  ,
+      fecha:moment(fechaTrabajo).format("YYYY-MM-DD hh:mm:ss"),
+      hora_inicio:moment(fechaTrabajo).format("YYYY-MM-DD HH:mm:ss") ,
+      hora_final:moment(fechaTrabajo).format("YYYY-MM-DD HH:mm:ss")  ,
       hora_total:0,
       horas_extra:0,
       estado:estado,
@@ -250,12 +252,16 @@ const setDataHorastrabajo = (item) => {
   setIdproyecto(item.idproyecto);
   setIdtipotrabajo(item.idtipotrabajo)
   setCodigoempleado(item.idempleado)
+  console.log(item.fecha)
+let fechaActual=new Date(item.fecha).toISOString().split('T')[0];
+  setFechaTrabajo(fechaActual)
 
 }
 
 const AbrirActualizar = (datahorastrabajo) => {
   setTitulo("Update Assistance")
   setDataHorastrabajo(datahorastrabajo)
+  
   setAccion("update")
   const modal=new bootstrap.Modal(document.getElementById("exampleModal"));
  modal.show();
@@ -444,6 +450,7 @@ const AbrirNuevo = () => {
 )):null }</select>
 </div> 
 
+<InputText label="Date" type="date" value={fechaTrabajo} onChange={setFechaTrabajo} required  />
 {/**
  <InputText label="Address" type="text" value={direccion} onChange={setDireccion} required  disabled/>
  <InputText label="Phase" type="text" value={nombrefase} onChange={setNombrefase} required disabled/>

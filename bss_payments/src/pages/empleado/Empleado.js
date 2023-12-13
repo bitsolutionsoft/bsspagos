@@ -56,6 +56,7 @@ getEmpleado();
 
   const getEmpleado =async () => {
     let data=await Datos.getDatos("empleado")
+    console.log(data)
     if(data !== null){
       setEmpleado(data)
       setEmpleadoAux(data)
