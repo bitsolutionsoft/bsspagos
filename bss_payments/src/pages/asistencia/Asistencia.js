@@ -364,7 +364,7 @@ const AbrirNuevo = () => {
                   <td>{item.proyecto}</td>
                   <td>{item.tipo}</td>
                   <td>{Moneda(item.precio)}</td>
-                  <td>{moment(item.hora_inicio).format("MM/DD/YYYY")}</td>
+                  <td>{moment(item.fecha).format("MM/DD/YYYY")}</td>
                   
                   <td>{moment(item.hora_inicio).format("HH:mm:ss")}</td>
                   <td>
